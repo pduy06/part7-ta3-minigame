@@ -198,57 +198,42 @@ export const questionsData = [
     id: "q5",
     order: 5,
     type: "long_sentence",
-    question: "What is currently happening with the customer loyalty program?",
+    question: "Why might rates be raised by the postal service in the future?",
     longSentence: {
-      text: "Regional branch directors had enthusiastically endorsed the proposed customer loyalty program; however, due to severe corporate budget reductions, the executive committee has chosen to postpone implementation until the following financial year.",
+      text: "Any future price adjustments will be based on national inflation.",
       segments: [
         {
-          text: "Regional branch directors had enthusiastically endorsed the proposed customer loyalty program;",
-          role: "prior_clause",
-          label: "Mệnh đề ban đầu"
+          text: "Any future price adjustments will be based on",
+          role: "subject",
+          label: "Mệnh đề chính"
         },
         {
-          text: "however,",
-          role: "transition_word",
-          label: "Từ nối tương phản: 'however'"
-        },
-        {
-          text: "due to severe corporate budget reductions,",
-          role: "subordinate_clause",
-          label: "Lý do: Cắt giảm ngân sách"
-        },
-        {
-          text: "the executive committee has chosen to postpone implementation",
+          text: "national inflation.",
           role: "main_verb",
-          label: "Quyết định thực tế: Hoãn triển khai"
-        },
-        {
-          text: "until the following financial year.",
-          role: "time_clause",
-          label: "Thời hạn: Năm tài chính tiếp theo"
+          label: "Paraphrase: changes in inflation"
         }
       ]
     },
     answers: [
-      { id: "A", text: "It is being expanded to all regional branch locations immediately" },
-      { id: "B", text: "It was permanently canceled because of poor director feedback" },
-      { id: "C", text: "Its rollout has been put on hold until the next financial year" },
-      { id: "D", text: "It is currently undergoing final testing by the committee" }
+      { id: "A", text: "To cover expenses related to an expansion" },
+      { id: "B", text: "To adjust for changes in inflation" },
+      { id: "C", text: "To pay for additional staff members" },
+      { id: "D", text: "To allow for mail heavier than 30 grams" }
     ],
-    correctAnswerId: "C",
+    correctAnswerId: "B",
     timing: {
       questionTimerSeconds: 5,
       scanTimerSeconds: 20,
       answerTimerSeconds: 10
     },
     evidence: {
-      mode: "sentence_segments",
+      mode: "image_keys",
       chain: [
-        { step: 1, segmentIndex: 1, label: "1. 'however' đảo ngược ý mệnh đề trước" },
-        { step: 2, segmentIndex: 3, label: "2. Quyết định: 'postpone implementation'" },
-        { step: 3, segmentIndex: 4, label: "3. Thời hạn: 'until the following financial year'" }
+        { step: 1, key: "national inflation", label: "Any future price adjustments will be based on national inflation." }
       ]
     },
-    why: "Sau từ nối 'however', ban điều hành quyết định hoãn triển khai sang năm tài chính tới."
+    why: "Any future price adjustments will be based on national inflation.",
+    paraphrase: "national inflation → changes in inflation",
+    skill: "Scan → Locate Evidence → Recognize Paraphrase"
   }
 ];
