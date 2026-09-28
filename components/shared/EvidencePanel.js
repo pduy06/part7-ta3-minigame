@@ -5,6 +5,7 @@
 
 import { createTableRenderer } from '../media/TableRenderer.js';
 import { createSentenceRenderer } from '../longsentence/SentenceRenderer.js';
+import { soundManager } from './sound.js';
 
 export function createEvidencePanel(question, currentStep, onStepChange, onNext) {
   const container = document.createElement('div');
@@ -24,6 +25,7 @@ export function createEvidencePanel(question, currentStep, onStepChange, onNext)
     btn.className = `step-btn ${s <= currentStep ? 'active' : ''}`;
     btn.textContent = `Bước ${s}`;
     btn.addEventListener('click', () => {
+      soundManager.playClick();
       onStepChange(s);
     });
     stepBar.appendChild(btn);
@@ -51,12 +53,13 @@ export function createEvidencePanel(question, currentStep, onStepChange, onNext)
   const actionRow = document.createElement('div');
   actionRow.className = 'bottom-action-row';
   actionRow.innerHTML = `
-    <button id="btn-evidence-next" class="btn-primary-large">
-      NEXT ➔
+    <button id="btn-evidence-next" class="btn-continue-green">
+      CONTINUE ➔
     </button>
   `;
 
   actionRow.querySelector('#btn-evidence-next').addEventListener('click', () => {
+    soundManager.playClick();
     onNext();
   });
   container.appendChild(actionRow);

@@ -1,23 +1,23 @@
 /**
  * Design Tokens
- * Clean, light, high-contrast, presentation-optimized design tokens.
- * Single primary accent color (Indigo), system sans-serif typography, projector-ready.
+ * Clean, academic, professional, bright, modern, projector-friendly.
+ * Single primary accent (#4F46E5), system sans-serif typography, subtle 0 1px 2px shadow.
  */
 
 :root {
-  /* Surface & Background Colors - youthful fresh tint */
+  /* Surface & Background Colors */
   --bg-app: #F0F9FF;
   --bg-card: #FFFFFF;
   --bg-subtle: #F8FAFC;
   --bg-muted: #F1F5F9;
 
-  /* Text Colors - High contrast for projector & classroom readability */
+  /* Text Colors */
   --text-main: #0F172A;
-  --text-secondary: #334155;
+  --text-secondary: #475569;
   --text-muted: #64748B;
   --text-white: #FFFFFF;
 
-  /* Single Primary Accent - Youthful Indigo */
+  /* Primary Accent (#4F46E5) */
   --accent-primary: #4F46E5;
   --accent-primary-hover: #4338CA;
   --accent-primary-active: #3730A3;
@@ -25,65 +25,59 @@
   --accent-primary-border: #C7D2FE;
 
   /* Semantic Feedback */
-  --status-correct: #059669;
-  --status-correct-hover: #047857;
-  --status-correct-bg: #ECFDF5;
-  --status-correct-border: #A7F3D0;
+  --status-correct: #16A34A;
+  --status-correct-hover: #15803D;
+  --status-correct-bg: #DCFCE7;
+  --status-correct-border: #86EFAC;
 
   --status-incorrect: #DC2626;
   --status-incorrect-hover: #B91C1C;
-  --status-incorrect-bg: #FEF2F2;
+  --status-incorrect-bg: #FEE2E2;
   --status-incorrect-border: #FECACA;
 
   --status-warning: #D97706;
   --status-warning-bg: #FFFBEB;
 
-  /* Evidence Highlights - High contrast, educational clarity */
-  --highlight-row: #FEF3C7;
-  --highlight-row-text: #78350F;
-  --highlight-col: #E0E7FF;
-  --highlight-data-bg: #CCFBF1;
-  --highlight-data-border: #0D9488;
-  --highlight-data-text: #0F766E;
-
-  /* Syntax Highlighting for Long Sentences */
-  --syntax-subject-bg: #EEF2FF;
-  --syntax-subject-border: #4F46E5;
-  --syntax-subject-text: #3730A3;
-
-  --syntax-verb-bg: #FEF2F2;
-  --syntax-verb-border: #DC2626;
-  --syntax-verb-text: #991B1B;
-
-  --syntax-clause-bg: #CCFBF1;
-  --syntax-clause-border: #0D9488;
-  --syntax-clause-text: #0F766E;
+  /* Timer */
+  --timer-bg: #E0E7FF;
+  --timer-active: #4F46E5;
+  --timer-warning: #D97706;
+  --timer-danger: #DC2626;
 
   /* Borders & Lines */
+  --border-card: #E2E8F0;
   --border-subtle: #E2E8F0;
   --border-medium: #CBD5E1;
   --border-accent: #C7D2FE;
 
-  /* Typography - Single System Sans-serif (100% Offline & Projector Crisp) */
-  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  /* Typography */
+  --font-sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+  --font-weight-normal: 400;
+  --font-weight-semibold: 600;
+  --font-weight-extrabold: 800;
+
+  /* Font Sizes */
+  --font-size-ready: 104px;
+  --font-size-question: 36px;
+  --font-size-answers: 30px;
+  --font-size-explanation: 25px;
 
   /* Radii Scale */
   --radius-sm: 8px;
-  --radius-md: 14px;
-  --radius-lg: 20px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 20px;
   --radius-full: 9999px;
 
-  /* Presentation Aspect & Width */
+  /* Global Presentation Constraints */
   --max-width: 1280px;
 
-  /* Animation Timings (200ms - 450ms ease-out for optimal clarity) */
+  /* Animation Timings (200ms - 450ms ease-out) */
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
-  --transition-fast: 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-  --transition-smooth: 0.28s cubic-bezier(0.16, 1, 0.3, 1);
-  --transition-slow: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-fast: 200ms cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-normal: 300ms cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-slow: 450ms cubic-bezier(0.16, 1, 0.3, 1);
 
-  /* Soft Crisp Elevation */
-  --shadow-sm: 0 2px 8px rgba(15, 23, 42, 0.04);
-  --shadow-md: 0 6px 20px rgba(79, 70, 229, 0.08);
-  --shadow-card: 0 1px 3px rgba(15, 23, 42, 0.06), 0 6px 16px rgba(15, 23, 42, 0.03);
+  /* Subtle Shadow */
+  --shadow-subtle: 0 1px 2px rgba(15, 23, 42, 0.06);
 }

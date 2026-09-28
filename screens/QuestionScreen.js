@@ -1,6 +1,9 @@
 /**
  * Question Screen Component
- * Manages Question Prompt, READY action, 10s Question Timer, and 20s Document Scan.
+ * Manages:
+ * 1. READY presentation transition (title 96-120px, subtle breathing button)
+ * 2. QUESTION phase (question card 32-40px + 124px corner timer)
+ * 3. DOCUMENT scan (full document display, completely static for 20s + mini question & timer)
  */
 
 import { GamePhase } from '../state/gameStateMachine.js';
@@ -9,15 +12,16 @@ import { createCountdownElement } from '../components/shared/Countdown.js';
 import { createTableRenderer } from '../components/media/TableRenderer.js';
 import { createImageRenderer } from '../components/media/ImageRenderer.js';
 import { createSentenceRenderer } from '../components/longsentence/SentenceRenderer.js';
+import { soundManager } from '../components/shared/sound.js';
 
-function createCornerTimer() {
+function createCornerTimer(size = 124) {
   const wrap = document.createElement('div');
   wrap.className = 'timer-corner';
-  wrap.appendChild(createCountdownElement());
+  wrap.appendChild(createCountdownElement(size));
   return wrap;
 }
 
-function createDocumentEl(q) {
+function createDocumentElement(q) {
   if (q.media?.kind === 'image') return createImageRenderer(q.media);
   if (q.type === 'long_sentence') return createSentenceRenderer(q.longSentence, null, 0);
   return createTableRenderer(q.media, null, 0);
@@ -35,66 +39,78 @@ export function createQuestionScreen(gameState) {
   const isDocumentScan = gameState.phase === GamePhase.DOCUMENT_SHOWN;
 
   if (isShown) {
-    // 1. INTRO ONLY (DEMO / CAU 1..5) + READY BUTTON - chua hien cau hoi
+    // 1. READY SCREEN: Large presentation transition (96-120px)
     container.classList.add('screen-center');
     const isDemo = q.id === 'demo';
-    const introBadgeText = isDemo ? 'PHẦN THỰC HÀNH' : `CÂU HỎI TRỌNG TÂM`;
     const introLabel = isDemo ? 'DEMO' : `CÂU ${q.order}`;
 
     const introEl = document.createElement('div');
-    introEl.className = 'intro-container';
+    introEl.className = 'ready-container';
     introEl.innerHTML = `
-      <div class="intro-badge">${introBadgeText}</div>
-      <h2 class="intro-title">${introLabel}</h2>
+      <div class="ready-badge">${isDemo ? 'PHẦN THỰC HÀNH' : 'CÂU HỎI TRỌNG TÂM'}</div>
+      <h2 class="ready-title">${introLabel}</h2>
     `;
     container.appendChild(introEl);
 
     const actionArea = document.createElement('div');
     actionArea.className = 'action-center-area';
     actionArea.innerHTML = `
-      <button id="btn-ready" class="btn-primary-large">
-        READY ➔
+      <button id="btn-ready" class="btn-ready-action">
+        READY
       </button>
     `;
     actionArea.querySelector('#btn-ready').addEventListener('click', () => {
+      soundManager.ensureContext();
+      soundManager.playClick();
       gameState.pressReady();
     });
     container.appendChild(actionArea);
 
   } else if (isQuestionTimer) {
-    // 2. STEP 1: QUESTION truoc, 10s goc phai, chua hien document
-    container.classList.add('screen-center');
-    container.appendChild(createCornerTimer());
+    // 2. QUESTION: 32-40px question card + 124px corner timer
+    container.classList.add('screen-center', 'question-phase-container');
+    container.appendChild(createCornerTimer(124));
+
     const header = createQuestionHeader(q);
     container.appendChild(header);
 
-    // Subtle skip button
+    // Subtle skip button for presenter
     const skipBtn = document.createElement('button');
     skipBtn.className = 'btn-skip-subtle';
     skipBtn.textContent = 'Bỏ qua ➔';
     skipBtn.addEventListener('click', () => {
+      soundManager.playClick();
       gameState.skipTimer();
     });
     container.appendChild(skipBtn);
 
   } else if (isDocumentScan) {
-    // 3. STEP 2: DOCUMENT anh goc full man hinh + cau hoi nho ben tren + 20s goc phai
+    // 3. DOCUMENT: Almost entire screen, completely static for 20s
+    container.classList.add('document-phase-container');
+
     const topBar = document.createElement('div');
     topBar.className = 'doc-topbar';
+
     const qMini = document.createElement('div');
     qMini.className = 'doc-question-mini';
     qMini.textContent = q.question;
     topBar.appendChild(qMini);
-    topBar.appendChild(createCornerTimer());
+
+    topBar.appendChild(createCornerTimer(124));
     container.appendChild(topBar);
 
-    container.appendChild(createDocumentEl(q));
+    // Document Container (Card)
+    const docWrapper = document.createElement('div');
+    docWrapper.className = 'doc-main-wrapper';
+    docWrapper.appendChild(createDocumentElement(q));
+    container.appendChild(docWrapper);
 
     // Subtle skip button
     const skipBtn = document.createElement('button');
     skipBtn.className = 'btn-skip-subtle';
     skipBtn.textContent = 'Bỏ qua ➔';
     skipBtn.addEventListener('click', () => {
+      soundManager.playClick();
       gameState.skipTimer();
     });
     container.appendChild(skipBtn);
