@@ -70,7 +70,7 @@ export class GameStateMachine {
         this.setPhase(GamePhase.DOCUMENT_SHOWN);
       });
     } else if (newPhase === GamePhase.DOCUMENT_SHOWN) {
-      const duration = q.timing?.scanTimerSeconds || this.config.timing.scanTimerSeconds || 20;
+      const duration = q.timing?.scanTimerSeconds || this.config.timing.scanTimerSeconds || 30;
       globalTimer.start(duration, () => {
         this.setPhase(GamePhase.ANSWER_MODE);
       });
