@@ -185,13 +185,13 @@ export const questionsData = [
     evidence: {
       mode: "image_keys",
       chain: [
-        { step: 1, key: "Ms. Tanya Sullivan", label: "Customer: Ms. Tanya Sullivan" },
-        { step: 2, key: "March 13", label: "Purchase Date: March 13" },
-        { step: 3, key: "Midas Internet multimedia package", label: "Services: Midas Internet multimedia package → signed up for Internet service" }
+        { step: 1, key: "Purchase Date: March 13", label: "Purchase Date: March 13" },
+        { step: 2, key: "Services Purchased", label: "Services Purchased:" },
+        { step: 3, key: "Midas Internet multimedia package", label: "Midas Internet multimedia package" }
       ]
     },
-    why: "Purchase Date March 13 ghi Midas Internet multimedia package, tức signed up for Internet service.",
-    skill: "SCAN name + date → match action"
+    why: "Trong hợp đồng, Ms. Tanya Sullivan có Purchase Date là March 13 và phần Services Purchased ghi Midas Internet multimedia package. Vì vậy, cô ấy đã đăng ký dịch vụ Internet vào ngày 13 tháng 3.",
+    skill: "Scan → Find the name/date → Locate the relevant information → Match the paraphrase"
   },
   {
     id: "q5",
