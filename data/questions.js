@@ -1,7 +1,7 @@
 /**
- * TOEIC Part 7 Questions Data - dong bo theo noi dung chot:
- * Q1 = Q149 (Lorene), Q2 = Q159 (Channel 19)
- * Q3/Q5 chua chot (giu vi tri, se them sau), Q4 BO, khong Q166/Q157.
+ * TOEIC Part 7 Questions Data - chot full 5 cau:
+ * Q1 Maple Outdoor / Q2 Lorene / Q3 Channel 19 / Q4 Midas / Q5 Postal
+ * Hoi/dap an tieng Anh nguyen van, explanation tieng Viet, key do dam.
  */
 
 export const questionsData = [
@@ -51,6 +51,40 @@ export const questionsData = [
     id: "q1",
     order: 1,
     type: "form",
+    question: "How much does an Avalanche fuel canister cost?",
+    media: {
+      kind: "image",
+      imageUrl: "./assets/q1-maple-outdoor.png",
+      tableData: null
+    },
+    answers: [
+      { id: "A", text: "$58.79" },
+      { id: "B", text: "$9.98" },
+      { id: "C", text: "$19.96" },
+      { id: "D", text: "$12.85" }
+    ],
+    correctAnswerId: "B",
+    timing: {
+      questionTimerSeconds: 5,
+      scanTimerSeconds: 20,
+      answerTimerSeconds: 10
+    },
+    evidence: {
+      mode: "image_keys",
+      chain: [
+        { step: 1, key: "Fuel Canister", label: "Find row: Fuel Canister" },
+        { step: 2, key: "Avalanche", label: "Brand: Avalanche" },
+        { step: 3, key: "Unit", label: "Column: Unit Price" },
+        { step: 4, key: "$9.98", label: "→ $9.98 (UNIT PRICE, not $19.96 PRICE)" }
+      ]
+    },
+    why: "Câu hỏi hỏi giá của một Fuel Canister. Trong bảng, Fuel Canister có thương hiệu Avalanche và Unit Price là $9.98. Giá $19.96 nằm ở cột Price, không phải giá của một sản phẩm.",
+    skill: "SCAN → FIND ROW → CHECK COLUMN → FIND DATA"
+  },
+  {
+    id: "q2",
+    order: 2,
+    type: "form",
     question: "What can be reimbursed using the form?",
     media: {
       kind: "table",
@@ -87,15 +121,16 @@ export const questionsData = [
     evidence: {
       mode: "image_keys",
       chain: [
-        { step: 1, key: "without itemized receipts", label: "Funds will not be issued to employees without itemized receipts." }
+        { step: 1, key: "without itemized receipts", label: "Funds will not be issued to employees without itemized receipts." },
+        { step: 2, key: "Receipts attached? Yes", label: "Receipts attached? Yes" }
       ]
     },
-    why: "Theo quy định của biểu mẫu, khoản hoàn trả chỉ được cấp khi nhân viên nộp biên lai chi tiết. Vì vậy, đáp án đúng là C.",
-    skill: "Scan → Find policy → Match evidence"
+    why: "Khoản chi chỉ được hoàn trả khi nhân viên nộp biên lai chi tiết. Vì vậy, đáp án đúng là C.",
+    skill: "SCAN → FIND REQUIREMENT → MATCH EVIDENCE"
   },
   {
-    id: "q2",
-    order: 2,
+    id: "q3",
+    order: 3,
     type: "chart",
     question: "What is the focus of the channel?",
     media: {
@@ -127,6 +162,72 @@ export const questionsData = [
       ]
     },
     why: "Nhìn tổng thể lịch chương trình, các nội dung chủ yếu nói về động vật, thực vật, thiên nhiên, môi trường và hoạt động ngoài trời. Vì vậy, chủ đề chính của kênh là Nature.",
-    skill: "Overview Scan → Identify the common topic"
+    skill: "OVERVIEW SCAN → IDENTIFY THE COMMON TOPIC"
+  },
+  {
+    id: "q4",
+    order: 4,
+    type: "form",
+    question: "What did Ms. Sullivan do on March 13?",
+    media: {
+      kind: "image",
+      imageUrl: "./assets/q4-ms-sullivan.png",
+      tableData: null
+    },
+    answers: [
+      { id: "A", text: "Purchased a home security system" },
+      { id: "B", text: "Returned a product" },
+      { id: "C", text: "Signed up for Internet service" },
+      { id: "D", text: "Made an appointment" }
+    ],
+    correctAnswerId: "C",
+    timing: {
+      questionTimerSeconds: 5,
+      scanTimerSeconds: 20,
+      answerTimerSeconds: 10
+    },
+    evidence: {
+      mode: "image_keys",
+      chain: [
+        { step: 1, key: "Ms. Tanya Sullivan", label: "Ms. Tanya Sullivan" },
+        { step: 2, key: "Purchase Date: March 13", label: "Purchase Date: March 13" },
+        { step: 3, key: "Services Purchased", label: "Services Purchased" },
+        { step: 4, key: "Midas Internet multimedia package", label: "Midas Internet multimedia package" }
+      ]
+    },
+    why: "Trong hợp đồng, Ms. Tanya Sullivan có ngày mua dịch vụ là March 13. Phần Services Purchased ghi Midas Internet multimedia package, cho thấy cô ấy đã đăng ký dịch vụ Internet vào ngày này.",
+    skill: "SCAN → FIND NAME/DATE → LOCATE INFORMATION → MATCH PARAPHRASE"
+  },
+  {
+    id: "q5",
+    order: 5,
+    type: "chart",
+    question: "Why might rates be raised by the postal service in the future?",
+    media: {
+      kind: "image",
+      imageUrl: "./assets/5-postal-rates.png",
+      tableData: null
+    },
+    answers: [
+      { id: "A", text: "To cover expenses related to an expansion" },
+      { id: "B", text: "To adjust for changes in inflation" },
+      { id: "C", text: "To pay for additional staff members" },
+      { id: "D", text: "To allow for mail heavier than 30 grams" }
+    ],
+    correctAnswerId: "B",
+    timing: {
+      questionTimerSeconds: 5,
+      scanTimerSeconds: 20,
+      answerTimerSeconds: 10
+    },
+    evidence: {
+      mode: "image_keys",
+      chain: [
+        { step: 1, key: "future price adjustments", label: "future price adjustments" },
+        { step: 2, key: "national inflation", label: "national inflation" }
+      ]
+    },
+    why: "Thông báo cho biết mọi điều chỉnh giá trong tương lai sẽ dựa trên tình hình lạm phát quốc gia. Vì vậy, lý do có thể khiến mức phí tăng là để điều chỉnh theo sự thay đổi của lạm phát.",
+    skill: "SCAN → LOCATE EVIDENCE → RECOGNIZE PARAPHRASE"
   }
 ];
