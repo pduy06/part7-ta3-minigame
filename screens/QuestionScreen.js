@@ -21,10 +21,15 @@ export function createQuestionScreen(gameState) {
   const isDocumentScan = gameState.phase === GamePhase.DOCUMENT_SHOWN;
 
   if (isShown) {
-    // 1. QUESTION ONLY + READY BUTTON
+    // 1. INTRO ONLY (DEMO / CAU 1..5) + READY BUTTON - chua hien cau hoi
     container.classList.add('screen-center');
-    const header = createQuestionHeader(q);
-    container.appendChild(header);
+    const introLabel = q.id === 'demo' ? 'DEMO' : `CÂU ${q.order}`;
+    const introEl = document.createElement('div');
+    introEl.className = 'question-container';
+    introEl.innerHTML = `
+      <h2 class="question-title-text" style="font-size: 56px;">${introLabel}</h2>
+    `;
+    container.appendChild(introEl);
 
     const actionArea = document.createElement('div');
     actionArea.className = 'action-center-area';
