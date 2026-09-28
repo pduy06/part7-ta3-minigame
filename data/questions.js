@@ -161,61 +161,38 @@ export const questionsData = [
     skill: "Overview Scan — titles + programs for general topic, not line-by-line"
   },
   {
+    // TODO(Q166): chua chot dap an - doi anh document de doi chieu Ms. Sullivan + March 13. Hien de tam D.
     id: "q4",
     order: 4,
-    type: "long_sentence",
-    question: "According to the sentence, why was the official building inspection postponed?",
-    longSentence: {
-      text: "The lead architect, although repeatedly assured by the contractor that structural reinforcements would be finished by Friday, ultimately decided to postpone the official building inspection due to unverified foundation permits.",
-      segments: [
-        {
-          text: "The lead architect",
-          role: "subject",
-          label: "Chủ ngữ (Subject)"
-        },
-        {
-          text: ", although repeatedly assured by the contractor that structural reinforcements would be finished by Friday,",
-          role: "subordinate_clause",
-          label: "Mệnh đề phụ chêm xen (Modifier)"
-        },
-        {
-          text: "ultimately decided to postpone",
-          role: "main_verb",
-          label: "Động từ chính (Main Action)"
-        },
-        {
-          text: "the official building inspection",
-          role: "object_clause",
-          label: "Tân ngữ (Object)"
-        },
-        {
-          text: "due to unverified foundation permits.",
-          role: "subordinate_clause",
-          label: "Nguyên nhân chính (Root Cause)"
-        }
-      ]
+    type: "form",
+    question: "What did Ms. Sullivan do on March 13?",
+    media: {
+      kind: "image",
+      imageUrl: "./assets/q4-ms-sullivan.png",
+      tableData: null
     },
     answers: [
-      { id: "A", text: "The contractor failed to complete structural reinforcements on time" },
-      { id: "B", text: "The architect could not attend the scheduled Friday meeting" },
-      { id: "C", text: "Necessary permits for the foundation had not yet been verified" },
-      { id: "D", text: "The building materials were rejected by government regulators" }
+      { id: "A", text: "Purchased a home security system" },
+      { id: "B", text: "Returned a product" },
+      { id: "C", text: "Signed up for Internet service" },
+      { id: "D", text: "Made an appointment" }
     ],
-    correctAnswerId: "C",
+    correctAnswerId: "D",
     timing: {
       questionTimerSeconds: 5,
       scanTimerSeconds: 20,
       answerTimerSeconds: 10
     },
     evidence: {
-      mode: "sentence_segments",
+      mode: "image_keys",
       chain: [
-        { step: 1, segmentIndex: 0, label: "1. Chủ ngữ: The lead architect" },
-        { step: 2, segmentIndex: 2, label: "2. Hành động: decided to postpone the inspection" },
-        { step: 3, segmentIndex: 4, label: "3. Nguyên nhân: due to unverified foundation permits" }
+        { step: 1, key: "Ms. Sullivan", label: "SCAN name: Ms. Sullivan" },
+        { step: 2, key: "March 13", label: "SCAN date: March 13" },
+        { step: 3, key: "action", label: "Đối chiếu hành động tương ứng trong document (TODO theo ảnh)" }
       ]
     },
-    why: "'due to unverified foundation permits' tương đương với phương án C."
+    why: "TODO: cập nhật giải thích ngắn + underline đỏ theo ảnh gốc (Ms. Sullivan + March 13).",
+    skill: "SCAN name + date → match action"
   },
   {
     id: "q5",
