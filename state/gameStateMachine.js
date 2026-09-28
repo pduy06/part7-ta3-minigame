@@ -1,8 +1,8 @@
 /**
  * Game State Machine
  * Flow trinh chieu tren lop:
- * READY -> QUESTION + 10s -> DOCUMENT (anh goc full) + 20s -> ANSWER (lock) -> RESULT + EXPLANATION -> CONTINUE -> Q tiep
- * Khong tu dong chuyen cau sau khi chon. Timer state truoc phai stop khi sang state moi.
+ * READY -> QUESTION + 5s -> DOCUMENT (anh goc full) + 20s -> ANSWER + 10s chon -> RESULT + EXPLANATION -> CONTINUE -> Q tiep
+ * Khong tu dong chuyen cau sau khi chon. Het 10s chon thi khoa + hien giai thich. Timer state truoc stop khi sang state moi.
  */
 
 import { questionsData } from '../data/questions.js';
@@ -34,6 +34,7 @@ export class GameStateMachine {
     this.isAnswerLocked = false;
     this.currentEvidenceStep = 1;
     this.isResultShown = false;
+    this.isTimeout = false;
     globalTimer.stop();
   }
 
@@ -61,9 +62,10 @@ export class GameStateMachine {
       this.selectedAnswer = null;
       this.isAnswerLocked = false;
       this.isResultShown = false;
+      this.isTimeout = false;
       this.currentEvidenceStep = 1;
     } else if (newPhase === GamePhase.QUESTION_TIMER) {
-      const duration = q.timing?.questionTimerSeconds || this.config.timing.questionTimerSeconds || 10;
+      const duration = q.timing?.questionTimerSeconds || this.config.timing.questionTimerSeconds || 5;
       globalTimer.start(duration, () => {
         this.setPhase(GamePhase.DOCUMENT_SHOWN);
       });
@@ -73,7 +75,10 @@ export class GameStateMachine {
         this.setPhase(GamePhase.ANSWER_MODE);
       });
     } else if (newPhase === GamePhase.ANSWER_MODE) {
-      globalTimer.stop();
+      const duration = q.timing?.answerTimerSeconds || this.config.timing.answerTimerSeconds || 10;
+      globalTimer.start(duration, () => {
+        this.lockOnTimeout();
+      });
     } else if (newPhase === GamePhase.EVIDENCE) {
       globalTimer.stop();
       this.currentEvidenceStep = 1;
@@ -97,10 +102,23 @@ export class GameStateMachine {
     this.selectedAnswer = answerId;
     this.isAnswerLocked = true;
     this.isResultShown = true;
+    this.isTimeout = false;
+    globalTimer.stop();
     // Khong tu dong chuyen cau. Giu RESULT + EXPLANATION, doi bam CONTINUE.
     this._notify();
 
     return true;
+  }
+
+  lockOnTimeout() {
+    if (this.phase !== GamePhase.ANSWER_MODE) return;
+    if (this.isAnswerLocked) return;
+    // Het 10s khong chon: khoa, hien dap an dung + giai thich
+    this.selectedAnswer = null;
+    this.isAnswerLocked = true;
+    this.isResultShown = true;
+    this.isTimeout = true;
+    this._notify();
   }
 
   setEvidenceStep(step) {
@@ -125,7 +143,7 @@ export class GameStateMachine {
   }
 
   skipTimer() {
-    if (this.phase === GamePhase.QUESTION_TIMER || this.phase === GamePhase.DOCUMENT_SHOWN) {
+    if (this.phase === GamePhase.QUESTION_TIMER || this.phase === GamePhase.DOCUMENT_SHOWN || this.phase === GamePhase.ANSWER_MODE) {
       globalTimer.skip();
     }
   }

@@ -7,6 +7,7 @@
 
 import { createQuestionHeader } from '../components/shared/QuestionHeader.js';
 import { createAnswerGrid } from '../components/shared/AnswerGrid.js';
+import { createCountdownElement } from '../components/shared/Countdown.js';
 
 function redKey(text) {
   return `<span class="red-key">${text}</span>`;
@@ -34,11 +35,32 @@ export function createAnswerScreen(gameState) {
   const q = gameState.getCurrentQuestion();
   if (!q) return container;
 
+  // 0. Timer 10s chon dap an (goc phai, chi hien khi chua chon)
+  if (!gameState.isAnswerLocked) {
+    const corner = document.createElement('div');
+    corner.className = 'timer-corner';
+    corner.appendChild(createCountdownElement());
+    container.appendChild(corner);
+  }
+
   // 1. Question Prompt
   const header = createQuestionHeader(q);
   container.appendChild(header);
 
-  // 2. Result Feedback Status Bar (if answer is clicked/locked & reveal)
+  // 2. Result Feedback Status Bar (neu da chon hoac het gio)
+  if (gameState.isTimeout && !gameState.selectedAnswer) {
+    const timeoutBar = document.createElement('div');
+    timeoutBar.className = 'result-status-bar incorrect';
+    timeoutBar.innerHTML = `
+      <span>HẾT GIỜ — CHƯA CHỌN</span>
+      <span style="font-size: 16px; font-weight: 700;">Đáp án đúng: ${q.correctAnswerId}</span>
+    `;
+    container.appendChild(timeoutBar);
+    const expWrap0 = document.createElement('div');
+    expWrap0.innerHTML = buildExplanationHtml(q);
+    container.appendChild(expWrap0);
+  }
+
   if (gameState.isResultShown && gameState.selectedAnswer) {
     const isCorrect = gameState.selectedAnswer === q.correctAnswerId;
     const statusBar = document.createElement('div');
