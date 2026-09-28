@@ -87,41 +87,32 @@ export const questionsData = [
     id: "q2",
     order: 2,
     type: "form",
-    question: "According to the invoice notice, what condition must be met to receive free standard shipping?",
+    question: "What can be reimbursed using the form?",
     media: {
-      kind: "table",
-      tableData: {
-        columns: ["Item Code", "Description", "Qty", "Unit Price", "Total"],
-        rows: [
-          ["PX-104", "Ergonomic Desk Chair", "2", "$85.00", "$170.00"],
-          ["PX-208", "Wireless Presenter Pointer", "1", "$15.00", "$15.00"],
-          ["SUBTOTAL", "Order Merchandise Total", "-", "-", "$185.00"],
-          ["SHIPPING", "Standard Ground Delivery", "-", "-", "$15.00"],
-          ["TOTAL DUE", "Balance Payable", "-", "-", "$200.00"]
-        ],
-        footnote: "SHIPPING POLICY: Standard delivery is complimentary on orders with merchandise subtotal exceeding $250.00 before taxes."
-      }
+      kind: "image",
+      imageUrl: "./assets/q2-lorene-reimbursement.png",
+      tableData: null
     },
     answers: [
-      { id: "A", text: "Ordering during the annual promotional clearance" },
-      { id: "B", text: "Having a merchandise pre-tax subtotal greater than $250.00" },
-      { id: "C", text: "Paying in advance with a commercial corporate card" },
-      { id: "D", text: "Purchasing more than five office equipment items" }
+      { id: "A", text: "Only amounts less than £100" },
+      { id: "B", text: "Only transportation costs" },
+      { id: "C", text: "Only charges submitted with a receipt" },
+      { id: "D", text: "Only the expenses of senior staff members" }
     ],
-    correctAnswerId: "B",
+    correctAnswerId: "C",
     timing: {
       questionTimerSeconds: 5,
       scanTimerSeconds: 20,
       answerTimerSeconds: 10
     },
     evidence: {
-      mode: "table_cells",
+      mode: "image_keys",
       chain: [
-        { step: 1, row: 3, col: 0, label: "Mục cước vận chuyển (SHIPPING $15.00)" },
-        { step: 2, row: 5, col: 0, label: "Chú thích chân trang: 'subtotal exceeding $250.00 before taxes'" }
+        { step: 1, key: "without itemized receipts", label: "Funds will not be issued to employees without itemized receipts." }
       ]
     },
-    why: "Chú thích quy định đơn hàng có tổng tiền trước thuế trên $250.00 được miễn cước."
+    why: "Funds will not be issued to employees without itemized receipts.",
+    skill: "SCAN form → policy/receipt section"
   },
   {
     id: "q3",
