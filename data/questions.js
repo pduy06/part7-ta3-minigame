@@ -161,7 +161,6 @@ export const questionsData = [
     skill: "Overview Scan — titles + programs for general topic, not line-by-line"
   },
   {
-    // TODO(Q166): chua chot dap an - doi anh document de doi chieu Ms. Sullivan + March 13. Hien de tam D.
     id: "q4",
     order: 4,
     type: "form",
@@ -177,7 +176,7 @@ export const questionsData = [
       { id: "C", text: "Signed up for Internet service" },
       { id: "D", text: "Made an appointment" }
     ],
-    correctAnswerId: "D",
+    correctAnswerId: "C",
     timing: {
       questionTimerSeconds: 5,
       scanTimerSeconds: 20,
@@ -186,12 +185,12 @@ export const questionsData = [
     evidence: {
       mode: "image_keys",
       chain: [
-        { step: 1, key: "Ms. Sullivan", label: "SCAN name: Ms. Sullivan" },
-        { step: 2, key: "March 13", label: "SCAN date: March 13" },
-        { step: 3, key: "action", label: "Đối chiếu hành động tương ứng trong document (TODO theo ảnh)" }
+        { step: 1, key: "Ms. Tanya Sullivan", label: "Customer: Ms. Tanya Sullivan" },
+        { step: 2, key: "March 13", label: "Purchase Date: March 13" },
+        { step: 3, key: "Midas Internet multimedia package", label: "Services: Midas Internet multimedia package → signed up for Internet service" }
       ]
     },
-    why: "TODO: cập nhật giải thích ngắn + underline đỏ theo ảnh gốc (Ms. Sullivan + March 13).",
+    why: "Purchase Date March 13 ghi Midas Internet multimedia package, tức signed up for Internet service.",
     skill: "SCAN name + date → match action"
   },
   {
