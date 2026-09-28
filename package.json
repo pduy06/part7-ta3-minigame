@@ -1,0 +1,20 @@
+{
+  "name": "toeic-part7-minigame",
+  "version": "1.0.0",
+  "description": "TOEIC Reading Part 7 Mini-Game",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js",
+    "test": "node test_engine.js"
+  },
+  "keywords": [
+    "toeic",
+    "part7",
+    "minigame",
+    "presentation"
+  ],
+  "author": "Group TOEIC Part 7",
+  "license": "MIT"
+}
