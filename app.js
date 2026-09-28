@@ -33,7 +33,7 @@ function renderHeader(gameState) {
     ${counterText ? `<span class="header-counter">${counterText}</span>` : ''}
   `;
 
-  // 2. CENTER: 4-step progress indicator: Hỏi → Scan → Chọn → Giải thích
+  // 2. CENTER: 4-step progress indicator: Ask → Scan → Answer → Explain
   const centerDiv = document.createElement('div');
   centerDiv.className = 'header-center';
 
@@ -48,13 +48,13 @@ function renderHeader(gameState) {
   if (showSteps) {
     centerDiv.innerHTML = `
       <div class="phase-indicator">
-        <span class="phase-step ${activeStep === 1 ? 'active' : (activeStep > 1 ? 'completed' : '')}">Hỏi</span>
+        <span class="phase-step ${activeStep === 1 ? 'active' : (activeStep > 1 ? 'completed' : '')}">Ask</span>
         <span class="phase-arrow">→</span>
         <span class="phase-step ${activeStep === 2 ? 'active' : (activeStep > 2 ? 'completed' : '')}">Scan</span>
         <span class="phase-arrow">→</span>
-        <span class="phase-step ${activeStep === 3 ? 'active' : (activeStep > 3 ? 'completed' : '')}">Chọn</span>
+        <span class="phase-step ${activeStep === 3 ? 'active' : (activeStep > 3 ? 'completed' : '')}">Answer</span>
         <span class="phase-arrow">→</span>
-        <span class="phase-step ${activeStep === 4 ? 'active' : ''}">Giải thích</span>
+        <span class="phase-step ${activeStep === 4 ? 'active' : ''}">Explain</span>
       </div>
     `;
   }

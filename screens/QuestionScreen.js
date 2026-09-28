@@ -27,6 +27,23 @@ function createDocumentElement(q) {
   return createTableRenderer(q.media, null, 0);
 }
 
+function createPrevButton(gameState) {
+  if (gameState.currentQuestionIndex <= 0) return null;
+  const prevBtn = document.createElement('button');
+  prevBtn.className = 'btn-prev-subtle';
+  prevBtn.textContent = '← Previous';
+  prevBtn.addEventListener('click', () => {
+    soundManager.playClick();
+    gameState.prevQuestion();
+  });
+  return prevBtn;
+}
+
+function appendPrevButton(container, gameState) {
+  const btn = createPrevButton(gameState);
+  if (btn) container.appendChild(btn);
+}
+
 export function createQuestionScreen(gameState) {
   const container = document.createElement('div');
   container.className = 'screen-container';
@@ -66,6 +83,10 @@ export function createQuestionScreen(gameState) {
     });
     container.appendChild(actionArea);
 
+    if (gameState.currentQuestionIndex > 0) {
+      appendPrevButton(container, gameState);
+    }
+
   } else if (isQuestionTimer) {
     // 2. QUESTION: 32-40px question card + 124px corner timer
     container.classList.add('screen-center', 'question-phase-container');
@@ -74,15 +95,16 @@ export function createQuestionScreen(gameState) {
     const header = createQuestionHeader(q);
     container.appendChild(header);
 
-    // Subtle skip button for presenter
+    // Subtle next button for presenter (skip timer)
     const skipBtn = document.createElement('button');
     skipBtn.className = 'btn-skip-subtle';
-    skipBtn.textContent = 'Bỏ qua ➔';
+    skipBtn.textContent = 'Next ➔';
     skipBtn.addEventListener('click', () => {
       soundManager.playClick();
       gameState.skipTimer();
     });
     container.appendChild(skipBtn);
+    appendPrevButton(container, gameState);
 
   } else if (isDocumentScan) {
     // 3. DOCUMENT: Almost entire screen, completely static for 20s
@@ -105,15 +127,16 @@ export function createQuestionScreen(gameState) {
     docWrapper.appendChild(createDocumentElement(q));
     container.appendChild(docWrapper);
 
-    // Subtle skip button
+    // Subtle next button (skip timer)
     const skipBtn = document.createElement('button');
     skipBtn.className = 'btn-skip-subtle';
-    skipBtn.textContent = 'Bỏ qua ➔';
+    skipBtn.textContent = 'Next ➔';
     skipBtn.addEventListener('click', () => {
       soundManager.playClick();
       gameState.skipTimer();
     });
     container.appendChild(skipBtn);
+    appendPrevButton(container, gameState);
   }
 
   return container;

@@ -73,7 +73,7 @@ body {
   letter-spacing: 0.3px;
 }
 
-/* 4-Step Progress Indicator: Hỏi → Scan → Chọn → Giải thích */
+/* 4-Step Progress Indicator: Ask → Scan → Answer → Explain */
 .header-center {
   display: flex;
   align-items: center;
@@ -964,6 +964,27 @@ body {
 }
 
 .btn-skip-subtle:hover {
+  background-color: var(--bg-muted);
+  color: var(--text-main);
+  border-color: var(--border-medium);
+}
+
+.btn-prev-subtle {
+  position: absolute;
+  bottom: 24px;
+  left: 28px;
+  background-color: transparent;
+  border: 1px solid var(--border-card);
+  color: var(--text-muted);
+  font-size: 13px;
+  font-weight: var(--font-weight-semibold);
+  padding: 8px 16px;
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.btn-prev-subtle:hover {
   background-color: var(--bg-muted);
   color: var(--text-main);
   border-color: var(--border-medium);

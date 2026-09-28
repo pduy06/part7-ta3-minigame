@@ -121,5 +121,27 @@ export function createAnswerScreen(gameState) {
     container.appendChild(actionRow);
   }
 
+  // Subtle presenter nav: Previous (câu trước) + Next (bỏ qua 10s chọn)
+  if (!gameState.isAnswerLocked) {
+    const nextBtn = document.createElement('button');
+    nextBtn.className = 'btn-skip-subtle';
+    nextBtn.textContent = 'Next ➔';
+    nextBtn.addEventListener('click', () => {
+      soundManager.playClick();
+      gameState.skipTimer();
+    });
+    container.appendChild(nextBtn);
+  }
+  if (gameState.currentQuestionIndex > 0) {
+    const prevBtn = document.createElement('button');
+    prevBtn.className = 'btn-prev-subtle';
+    prevBtn.textContent = '← Previous';
+    prevBtn.addEventListener('click', () => {
+      soundManager.playClick();
+      gameState.prevQuestion();
+    });
+    container.appendChild(prevBtn);
+  }
+
   return container;
 }

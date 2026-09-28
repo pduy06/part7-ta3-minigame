@@ -137,6 +137,15 @@ export class GameStateMachine {
     }
   }
 
+  prevQuestion() {
+    if (this.currentQuestionIndex > 0) {
+      this.currentQuestionIndex -= 1;
+      this.setPhase(GamePhase.QUESTION_SHOWN);
+      return true;
+    }
+    return false;
+  }
+
   resetGame() {
     this.init();
     this.setPhase(GamePhase.LOBBY);
