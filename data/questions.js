@@ -197,9 +197,14 @@ export const questionsData = [
   {
     id: "q5",
     order: 5,
-    type: "long_sentence",
+    type: "chart",
     question: "Why might rates be raised by the postal service in the future?",
-    longSentence: {
+    media: {
+      kind: "image",
+      imageUrl: "./assets/5-postal-rates.png",
+      tableData: null
+    },
+    longSentenceBackup: {
       text: "Any future price adjustments will be based on national inflation.",
       segments: [
         {
