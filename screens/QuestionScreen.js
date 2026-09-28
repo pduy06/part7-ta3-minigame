@@ -23,11 +23,15 @@ export function createQuestionScreen(gameState) {
   if (isShown) {
     // 1. INTRO ONLY (DEMO / CAU 1..5) + READY BUTTON - chua hien cau hoi
     container.classList.add('screen-center');
-    const introLabel = q.id === 'demo' ? 'DEMO' : `CÂU ${q.order}`;
+    const isDemo = q.id === 'demo';
+    const introBadgeText = isDemo ? 'PHẦN THỰC HÀNH' : `CÂU HỎI TRỌNG TÂM`;
+    const introLabel = isDemo ? 'DEMO' : `CÂU ${q.order}`;
+
     const introEl = document.createElement('div');
-    introEl.className = 'question-container';
+    introEl.className = 'intro-container';
     introEl.innerHTML = `
-      <h2 class="question-title-text" style="font-size: 56px;">${introLabel}</h2>
+      <div class="intro-badge">${introBadgeText}</div>
+      <h2 class="intro-title">${introLabel}</h2>
     `;
     container.appendChild(introEl);
 
@@ -35,7 +39,7 @@ export function createQuestionScreen(gameState) {
     actionArea.className = 'action-center-area';
     actionArea.innerHTML = `
       <button id="btn-ready" class="btn-primary-large">
-        READY
+        READY ➔
       </button>
     `;
     actionArea.querySelector('#btn-ready').addEventListener('click', () => {

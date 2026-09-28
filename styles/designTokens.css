@@ -1,46 +1,73 @@
 /**
  * Design Tokens
  * Clean, light, high-contrast, presentation-optimized design tokens.
- * Single primary accent color, system sans-serif typography, projector-ready.
+ * Single primary accent color (Indigo), system sans-serif typography, projector-ready.
  */
 
 :root {
   /* Surface & Background Colors - youthful fresh tint */
   --bg-app: #F0F9FF;
   --bg-card: #FFFFFF;
-  --bg-subtle: #E0F2FE;
+  --bg-subtle: #F8FAFC;
+  --bg-muted: #F1F5F9;
 
-  /* Text Colors */
+  /* Text Colors - High contrast for projector & classroom readability */
   --text-main: #0F172A;
   --text-secondary: #334155;
   --text-muted: #64748B;
   --text-white: #FFFFFF;
 
-  /* Single Primary Accent - youthful indigo */
+  /* Single Primary Accent - Youthful Indigo */
   --accent-primary: #4F46E5;
   --accent-primary-hover: #4338CA;
+  --accent-primary-active: #3730A3;
   --accent-primary-subtle: #EEF2FF;
+  --accent-primary-border: #C7D2FE;
 
-  /* Semantic Feedback - fresher */
+  /* Semantic Feedback */
   --status-correct: #059669;
-  --status-correct-bg: #D1FAE5;
-  --status-incorrect: #DC2626;
-  --status-incorrect-bg: #FEE2E2;
+  --status-correct-hover: #047857;
+  --status-correct-bg: #ECFDF5;
+  --status-correct-border: #A7F3D0;
 
-  /* Evidence Highlights - youthful pastel */
-  --highlight-row: #FEF9C3;
+  --status-incorrect: #DC2626;
+  --status-incorrect-hover: #B91C1C;
+  --status-incorrect-bg: #FEF2F2;
+  --status-incorrect-border: #FECACA;
+
+  --status-warning: #D97706;
+  --status-warning-bg: #FFFBEB;
+
+  /* Evidence Highlights - High contrast, educational clarity */
+  --highlight-row: #FEF3C7;
+  --highlight-row-text: #78350F;
   --highlight-col: #E0E7FF;
   --highlight-data-bg: #CCFBF1;
   --highlight-data-border: #0D9488;
+  --highlight-data-text: #0F766E;
 
-  /* Borders & Lines - tinted to match accent */
-  --border-subtle: #E0E7FF;
-  --border-medium: #C7D2FE;
+  /* Syntax Highlighting for Long Sentences */
+  --syntax-subject-bg: #EEF2FF;
+  --syntax-subject-border: #4F46E5;
+  --syntax-subject-text: #3730A3;
 
-  /* Typography - keep single system sans for offline/projector */
+  --syntax-verb-bg: #FEF2F2;
+  --syntax-verb-border: #DC2626;
+  --syntax-verb-text: #991B1B;
+
+  --syntax-clause-bg: #CCFBF1;
+  --syntax-clause-border: #0D9488;
+  --syntax-clause-text: #0F766E;
+
+  /* Borders & Lines */
+  --border-subtle: #E2E8F0;
+  --border-medium: #CBD5E1;
+  --border-accent: #C7D2FE;
+
+  /* Typography - Single System Sans-serif (100% Offline & Projector Crisp) */
   --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 
-  /* Radii Scale - rounder = friendlier/younger */
+  /* Radii Scale */
   --radius-sm: 8px;
   --radius-md: 14px;
   --radius-lg: 20px;
@@ -48,8 +75,15 @@
 
   /* Presentation Aspect & Width */
   --max-width: 1280px;
-  --transition-smooth: all 0.28s cubic-bezier(0.34, 1.3, 0.64, 1);
 
-  /* Soft depth without heavy shadow */
-  --shadow-soft: 0 4px 20px rgba(79, 70, 229, 0.08);
+  /* Animation Timings (200ms - 450ms ease-out for optimal clarity) */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-fast: 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-smooth: 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-slow: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* Soft Crisp Elevation */
+  --shadow-sm: 0 2px 8px rgba(15, 23, 42, 0.04);
+  --shadow-md: 0 6px 20px rgba(79, 70, 229, 0.08);
+  --shadow-card: 0 1px 3px rgba(15, 23, 42, 0.06), 0 6px 16px rgba(15, 23, 42, 0.03);
 }

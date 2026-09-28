@@ -18,7 +18,7 @@ export function createAnswerScreen(gameState) {
   const header = createQuestionHeader(q);
   container.appendChild(header);
 
-  // 2. Result Feedback Status Bar (if answer is clicked/locked)
+  // 2. Result Feedback Status Bar (if answer is clicked/locked & reveal)
   if (gameState.isResultShown && gameState.selectedAnswer) {
     const isCorrect = gameState.selectedAnswer === q.correctAnswerId;
     const statusBar = document.createElement('div');
@@ -26,13 +26,19 @@ export function createAnswerScreen(gameState) {
 
     if (isCorrect) {
       statusBar.innerHTML = `
-        <span>✓ CORRECT</span>
-        <span style="font-size: 15px; font-weight: 600;">Đáp án đúng: ${q.correctAnswerId}</span>
+        <span style="display: flex; align-items: center; gap: 8px;">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          CHÍNH XÁC
+        </span>
+        <span style="font-size: 16px; font-weight: 700;">Đáp án đúng: ${q.correctAnswerId}</span>
       `;
     } else {
       statusBar.innerHTML = `
-        <span>✕ INCORRECT</span>
-        <span style="font-size: 15px; font-weight: 600;">Đáp án đúng: ${q.correctAnswerId}</span>
+        <span style="display: flex; align-items: center; gap: 8px;">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+          CHƯA CHÍNH XÁC
+        </span>
+        <span style="font-size: 16px; font-weight: 700;">Đáp án đúng: ${q.correctAnswerId}</span>
       `;
     }
     container.appendChild(statusBar);

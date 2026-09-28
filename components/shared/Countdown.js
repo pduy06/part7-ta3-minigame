@@ -13,9 +13,9 @@ export function createCountdownElement() {
   const circumference = 2 * Math.PI * radius;
 
   container.innerHTML = `
-    <svg class="timer-svg" viewBox="0 0 120 120">
-      <circle class="timer-bg-circle" cx="60" cy="60" r="${radius}"></circle>
-      <circle class="timer-progress-circle" cx="60" cy="60" r="${radius}"
+    <svg class="timer-svg" viewBox="0 0 124 124">
+      <circle class="timer-bg-circle" cx="62" cy="62" r="${radius}"></circle>
+      <circle class="timer-progress-circle" cx="62" cy="62" r="${radius}"
         style="stroke-dasharray: ${circumference}; stroke-dashoffset: 0;"></circle>
     </svg>
     <div class="timer-number">--</div>
@@ -29,6 +29,7 @@ export function createCountdownElement() {
       timerNumber.textContent = '0';
       progressCircle.style.strokeDashoffset = `${circumference}`;
       progressCircle.className = 'timer-progress-circle danger';
+      container.classList.add('pulse-danger');
       return;
     }
 
@@ -38,10 +39,13 @@ export function createCountdownElement() {
 
     if (remainingSeconds <= 3 && remainingSeconds > 0) {
       progressCircle.className = 'timer-progress-circle danger';
+      container.classList.add('pulse-danger');
     } else if (remainingSeconds <= 6) {
       progressCircle.className = 'timer-progress-circle warning';
+      container.classList.remove('pulse-danger');
     } else {
       progressCircle.className = 'timer-progress-circle';
+      container.classList.remove('pulse-danger');
     }
   });
 

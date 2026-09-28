@@ -16,12 +16,13 @@ export function createTableRenderer(media, evidence = null, currentStep = 0) {
 
   let highlightedRow = -1;
   let highlightedCol = -1;
-  let highlightedDataCell = null;
+  const targetCells = [];
   let highlightFootnote = false;
 
   if (evidence && evidence.chain && currentStep > 0) {
     const active = evidence.chain.slice(0, currentStep);
-    active.forEach(h => {
+    active.forEach((h, index) => {
+      const isLatest = index === active.length - 1;
       if (h.row !== undefined && h.col === undefined) {
         if (h.row >= rows.length) highlightFootnote = true;
         else highlightedRow = h.row;
@@ -30,7 +31,11 @@ export function createTableRenderer(media, evidence = null, currentStep = 0) {
         highlightedCol = h.col;
       }
       if (h.row !== undefined && h.col !== undefined) {
-        highlightedDataCell = { row: h.row, col: h.col };
+        if (h.row >= rows.length) {
+          highlightFootnote = true;
+        } else {
+          targetCells.push({ row: h.row, col: h.col, isLatest });
+        }
       }
     });
   }
@@ -47,12 +52,15 @@ export function createTableRenderer(media, evidence = null, currentStep = 0) {
     tableHtml += `<tr class="${isRowActive ? 'row-active' : ''}">`;
 
     row.forEach((cellVal, cIndex) => {
-      const isTarget = highlightedDataCell && highlightedDataCell.row === rIndex && highlightedDataCell.col === cIndex;
+      const targetMatch = targetCells.find(t => t.row === rIndex && t.col === cIndex);
       const isColActive = highlightedCol === cIndex;
 
       let classes = [];
-      if (isTarget) classes.push('cell-target');
-      else if (isColActive) classes.push('col-active');
+      if (targetMatch) {
+        classes.push(targetMatch.isLatest ? 'cell-target-current' : 'cell-target');
+      } else if (isColActive) {
+        classes.push('col-active');
+      }
 
       tableHtml += `<td class="${classes.join(' ')}">${cellVal}</td>`;
     });
