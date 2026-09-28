@@ -38,11 +38,10 @@ export class TimerEngine {
       const diff = this.endTime - now;
 
       if (diff <= 0) {
+        const cb = this.onCompleteCallback;
         this.stop();
         this._notify(0, 0);
-        if (this.onCompleteCallback) {
-          const cb = this.onCompleteCallback;
-          this.onCompleteCallback = null;
+        if (cb) {
           cb();
         }
       } else {
