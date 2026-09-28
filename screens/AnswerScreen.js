@@ -132,13 +132,13 @@ export function createAnswerScreen(gameState) {
     });
     container.appendChild(nextBtn);
   }
-  if (gameState.currentQuestionIndex > 0) {
+  if (gameState.canGoBack && gameState.canGoBack()) {
     const prevBtn = document.createElement('button');
     prevBtn.className = 'btn-prev-subtle';
     prevBtn.textContent = '← Previous';
     prevBtn.addEventListener('click', () => {
       soundManager.playClick();
-      gameState.prevQuestion();
+      gameState.goBack();
     });
     container.appendChild(prevBtn);
   }

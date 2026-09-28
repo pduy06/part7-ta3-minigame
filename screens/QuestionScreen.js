@@ -28,13 +28,13 @@ function createDocumentElement(q) {
 }
 
 function createPrevButton(gameState) {
-  if (gameState.currentQuestionIndex <= 0) return null;
+  if (!gameState.canGoBack || !gameState.canGoBack()) return null;
   const prevBtn = document.createElement('button');
   prevBtn.className = 'btn-prev-subtle';
   prevBtn.textContent = '← Previous';
   prevBtn.addEventListener('click', () => {
     soundManager.playClick();
-    gameState.prevQuestion();
+    gameState.goBack();
   });
   return prevBtn;
 }
@@ -83,9 +83,7 @@ export function createQuestionScreen(gameState) {
     });
     container.appendChild(actionArea);
 
-    if (gameState.currentQuestionIndex > 0) {
-      appendPrevButton(container, gameState);
-    }
+    appendPrevButton(container, gameState);
 
   } else if (isQuestionTimer) {
     // 2. QUESTION: 32-40px question card + 124px corner timer

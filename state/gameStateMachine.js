@@ -24,6 +24,8 @@ export class GameStateMachine {
     this.questions = questionsData;
     this.config = gameConfig;
     this.listeners = new Set();
+    this.history = [];
+    this._suppressHistory = false;
     this.init();
   }
 
@@ -35,6 +37,7 @@ export class GameStateMachine {
     this.currentEvidenceStep = 1;
     this.isResultShown = false;
     this.isTimeout = false;
+    this.history = [];
     globalTimer.stop();
   }
 
@@ -43,11 +46,77 @@ export class GameStateMachine {
   }
 
   startGame() {
+    this.history = [];
     this.currentQuestionIndex = 0;
     this.setPhase(GamePhase.QUESTION_SHOWN);
   }
 
+  _snapshot() {
+    return {
+      index: this.currentQuestionIndex,
+      phase: this.phase,
+      selectedAnswer: this.selectedAnswer,
+      isAnswerLocked: this.isAnswerLocked,
+      isResultShown: this.isResultShown,
+      isTimeout: this.isTimeout,
+      evidenceStep: this.currentEvidenceStep,
+    };
+  }
+
+  _pushHistory() {
+    if (this._suppressHistory) return;
+    this.history.push(this._snapshot());
+    if (this.history.length > 100) this.history.shift();
+  }
+
+  canGoBack() {
+    return this.history.length > 0;
+  }
+
+  goBack() {
+    if (this.history.length === 0) return false;
+    const prev = this.history.pop();
+    this._suppressHistory = true;
+    globalTimer.stop();
+    this.currentQuestionIndex = prev.index;
+    this.phase = prev.phase;
+    this.selectedAnswer = prev.selectedAnswer;
+    this.isAnswerLocked = prev.isAnswerLocked;
+    this.isResultShown = prev.isResultShown;
+    this.isTimeout = prev.isTimeout;
+    this.currentEvidenceStep = prev.evidenceStep;
+
+    const q = this.getCurrentQuestion();
+    if (q && prev.phase === GamePhase.QUESTION_TIMER) {
+      const duration = q.timing?.questionTimerSeconds || this.config.timing.questionTimerSeconds || 5;
+      globalTimer.start(duration, () => {
+        this._suppressHistory = false;
+        this.setPhase(GamePhase.DOCUMENT_SHOWN);
+      });
+    } else if (q && prev.phase === GamePhase.DOCUMENT_SHOWN) {
+      const duration = q.timing?.scanTimerSeconds || this.config.timing.scanTimerSeconds || 30;
+      globalTimer.start(duration, () => {
+        this._suppressHistory = false;
+        this.setPhase(GamePhase.ANSWER_MODE);
+      });
+    } else if (q && prev.phase === GamePhase.ANSWER_MODE && !prev.isAnswerLocked) {
+      const duration = q.timing?.answerTimerSeconds || this.config.timing.answerTimerSeconds || 10;
+      globalTimer.start(duration, () => {
+        this._suppressHistory = false;
+        this.lockOnTimeout();
+      });
+    } else {
+      globalTimer.stop();
+    }
+    this._suppressHistory = false;
+    this._notify();
+    return true;
+  }
+
   setPhase(newPhase) {
+    if (!this._suppressHistory && newPhase !== this.phase) {
+      this._pushHistory();
+    }
     this.phase = newPhase;
     globalTimer.stop();
 
@@ -99,6 +168,7 @@ export class GameStateMachine {
     if (this.phase !== GamePhase.ANSWER_MODE) return false;
     if (this.isAnswerLocked) return false;
 
+    this._pushHistory();
     this.selectedAnswer = answerId;
     this.isAnswerLocked = true;
     this.isResultShown = true;
@@ -114,6 +184,7 @@ export class GameStateMachine {
     if (this.phase !== GamePhase.ANSWER_MODE) return;
     if (this.isAnswerLocked) return;
     // Het 10s khong chon: khoa, hien dap an dung + giai thich
+    this._pushHistory();
     this.selectedAnswer = null;
     this.isAnswerLocked = true;
     this.isResultShown = true;
@@ -128,11 +199,17 @@ export class GameStateMachine {
 
   nextQuestion() {
     if (this.currentQuestionIndex < this.questions.length - 1) {
+      this._pushHistory();
+      this._suppressHistory = true;
       this.currentQuestionIndex += 1;
       this.setPhase(GamePhase.QUESTION_SHOWN);
+      this._suppressHistory = false;
       return true;
     } else {
+      this._pushHistory();
+      this._suppressHistory = true;
       this.setPhase(GamePhase.DONE);
+      this._suppressHistory = false;
       return true;
     }
   }

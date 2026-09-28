@@ -40,5 +40,16 @@ export function createDoneScreen(gameState) {
     gameState.resetGame();
   });
 
+  if (gameState.canGoBack && gameState.canGoBack()) {
+    const prevBtn = document.createElement('button');
+    prevBtn.className = 'btn-prev-subtle';
+    prevBtn.textContent = '← Previous';
+    prevBtn.addEventListener('click', () => {
+      soundManager.playClick();
+      gameState.goBack();
+    });
+    container.appendChild(prevBtn);
+  }
+
   return container;
 }

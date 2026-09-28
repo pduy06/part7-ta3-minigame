@@ -5,6 +5,7 @@
 
 import { createQuestionHeader } from '../components/shared/QuestionHeader.js';
 import { createEvidencePanel } from '../components/shared/EvidencePanel.js';
+import { soundManager } from '../components/shared/sound.js';
 
 export function createEvidenceScreen(gameState) {
   const container = document.createElement('div');
@@ -29,6 +30,17 @@ export function createEvidenceScreen(gameState) {
     }
   );
   container.appendChild(evidencePanel);
+
+  if (gameState.canGoBack && gameState.canGoBack()) {
+    const prevBtn = document.createElement('button');
+    prevBtn.className = 'btn-prev-subtle';
+    prevBtn.textContent = '← Previous';
+    prevBtn.addEventListener('click', () => {
+      soundManager.playClick();
+      gameState.goBack();
+    });
+    container.appendChild(prevBtn);
+  }
 
   return container;
 }
