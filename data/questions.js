@@ -133,40 +133,32 @@ export const questionsData = [
     id: "q3",
     order: 3,
     type: "chart",
-    question: "Which service category showed the highest improvement between Q1 and Q2?",
+    question: "What is the focus of the channel?",
     media: {
-      kind: "table",
-      tableData: {
-        columns: ["Service Category", "Q1 Score", "Q2 Score", "Net Change"],
-        rows: [
-          ["Baggage Handling", "3.8 / 5.0", "4.1 / 5.0", "+0.3"],
-          ["In-flight Entertainment", "3.2 / 5.0", "4.4 / 5.0", "+1.2"],
-          ["On-time Departure", "4.0 / 5.0", "4.3 / 5.0", "+0.3"],
-          ["Customer Helpdesk", "3.5 / 5.0", "4.0 / 5.0", "+0.5"]
-        ]
-      }
+      kind: "image",
+      imageUrl: "./assets/q3-channel19-schedule.png",
+      tableData: null
     },
     answers: [
-      { id: "A", text: "Baggage Handling" },
-      { id: "B", text: "In-flight Entertainment" },
-      { id: "C", text: "On-time Departure" },
-      { id: "D", text: "Customer Helpdesk" }
+      { id: "A", text: "Food" },
+      { id: "B", text: "Sports" },
+      { id: "C", text: "Nature" },
+      { id: "D", text: "Children" }
     ],
-    correctAnswerId: "B",
+    correctAnswerId: "C",
     timing: {
       questionTimerSeconds: 5,
       scanTimerSeconds: 20,
       answerTimerSeconds: 10
     },
     evidence: {
-      mode: "table_cells",
+      mode: "image_keys",
       chain: [
-        { step: 1, row: 1, col: 0, label: "Dịch vụ: In-flight Entertainment" },
-        { step: 2, row: 1, col: 1, label: "Q1: 3.2 ➔ Q2: 4.4" },
-        { step: 3, row: 1, col: 3, label: "Mức tăng cao nhất: +1.2" }
+        { step: 1, key: "nature, wildlife, the outdoors", label: "The programs mainly focus on nature, wildlife, the outdoors, and the natural world." }
       ]
     },
-    why: "In-flight Entertainment có mức tăng lớn nhất (+1.2 điểm so với +0.3 và +0.5)."
+    why: "The programs on the schedule mainly focus on nature, wildlife, the outdoors, and the natural world.",
+    skill: "Overview Scan — titles + programs for general topic, not line-by-line"
   },
   {
     id: "q4",
