@@ -13,6 +13,7 @@ export function createTableRenderer(media, evidence = null, currentStep = 0) {
   }
 
   const { columns, rows, footnote } = media.tableData;
+  const formHeader = media.formHeader || null;
 
   let highlightedRow = -1;
   let highlightedCol = -1;
@@ -40,7 +41,16 @@ export function createTableRenderer(media, evidence = null, currentStep = 0) {
     });
   }
 
-  let tableHtml = `<table class="clean-table"><thead><tr>`;
+  let tableHtml = '';
+  if (formHeader) {
+    tableHtml += `<div class="form-header-block">
+      <div class="form-title">${formHeader.title || ''}</div>
+      ${formHeader.subtitle ? `<div class="form-subtitle">${formHeader.subtitle}</div>` : ''}
+      ${formHeader.meta ? `<div class="form-meta">${formHeader.meta}</div>` : ''}
+      ${formHeader.section ? `<div class="form-section-label">${formHeader.section}</div>` : ''}
+    </div>`;
+  }
+  tableHtml += `<table class="clean-table"><thead><tr>`;
   columns.forEach((colName, cIndex) => {
     const isColActive = highlightedCol === cIndex;
     tableHtml += `<th class="${isColActive ? 'col-active' : ''}">${colName}</th>`;

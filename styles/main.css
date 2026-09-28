@@ -271,6 +271,13 @@ body {
   color: var(--text-secondary);
 }
 
+/* Form header (Lorene - giu nguyen noi dung goc) */
+.form-header-block { margin-bottom: 16px; }
+.form-title { font-size: 24px; font-weight: 900; text-align: center; }
+.form-subtitle { font-size: 18px; font-weight: 800; text-align: center; margin-top: 2px; }
+.form-meta { font-size: 15px; line-height: 1.6; margin-top: 12px; white-space: normal; }
+.form-section-label { font-size: 16px; font-weight: 800; margin-top: 12px; }
+
 /* Table Styling */
 .clean-table {
   width: 100%;
@@ -639,20 +646,25 @@ body {
   border-color: var(--border-medium);
 }
 
-/* FLOW MOI: timer goc phai, document full, explanation gach do */
+/* Timer in Top-Right Corner (Step 1, Step 2, Answer Phase) */
 .timer-corner {
   position: absolute;
   top: 16px;
   right: 24px;
   z-index: 5;
 }
+
 .timer-corner .timer-wrapper {
-  width: 84px;
-  height: 84px;
+  width: 88px;
+  height: 88px;
   margin: 0;
 }
-.timer-corner .timer-number { font-size: 30px; }
 
+.timer-corner .timer-number {
+  font-size: 30px;
+}
+
+/* Step 2 Document Topbar */
 .doc-topbar {
   display: flex;
   align-items: flex-start;
@@ -662,26 +674,34 @@ body {
   max-width: 1200px;
   margin: 0 auto 12px auto;
   position: relative;
-  min-height: 90px;
+  min-height: 88px;
   padding-right: 110px;
 }
+
 .doc-question-mini {
   font-size: 20px;
   font-weight: 800;
   color: var(--text-main);
   line-height: 1.4;
 }
-.doc-topbar .timer-corner { top: 0; right: 0; }
 
+.doc-topbar .timer-corner {
+  top: 0;
+  right: 0;
+}
+
+/* Full Document Image */
 .document-image-full {
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
-  background: #fff;
+  background: var(--bg-card);
   border: 1px solid var(--border-medium);
   border-radius: var(--radius-lg);
   padding: 12px;
+  box-shadow: var(--shadow-sm);
 }
+
 .document-original-img {
   width: 100%;
   height: auto;
@@ -690,6 +710,7 @@ body {
   display: block;
   user-select: none;
 }
+
 .missing-asset-box {
   padding: 28px;
   text-align: center;
@@ -697,32 +718,70 @@ body {
   border-radius: var(--radius-md);
   background: var(--status-incorrect-bg);
 }
-.missing-asset-box code { font-weight: 800; }
 
+.missing-asset-box code {
+  font-weight: 800;
+}
+
+/* Red Key Underline in Explanation */
 .red-key {
-  font-weight: 900;
-  border-bottom: 3px solid #DC2626;
+  font-weight: 800;
+  color: var(--status-incorrect);
+  border-bottom: 2.5px solid var(--status-incorrect);
   padding-bottom: 1px;
 }
+
+/* Explanation Box */
 .explanation-box {
   width: 100%;
   max-width: 1000px;
   margin: 0 auto 20px auto;
-  padding: 14px 20px;
+  padding: 16px 22px;
   border-radius: var(--radius-md);
   background: var(--bg-card);
   border: 1px solid var(--border-medium);
+  border-left: 4px solid var(--accent-primary);
+  box-shadow: var(--shadow-sm);
   font-size: 17px;
   line-height: 1.6;
+  animation: resultSlideDown var(--transition-fast) forwards;
 }
-.explanation-title { font-weight: 900; margin-bottom: 6px; }
-.explanation-steps { font-weight: 600; }
-.explanation-why { margin-top: 6px; color: var(--text-secondary); }
-.explanation-distractor { margin-top: 6px; color: var(--text-secondary); }
 
+.explanation-title {
+  font-weight: 800;
+  color: var(--accent-primary);
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  font-size: 13px;
+  letter-spacing: 0.6px;
+}
+
+.explanation-steps {
+  font-weight: 600;
+  color: var(--text-main);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.explanation-why {
+  margin-top: 8px;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.explanation-distractor {
+  margin-top: 8px;
+  color: var(--text-secondary);
+  font-weight: 500;
+  padding-top: 8px;
+  border-top: 1px dashed var(--border-subtle);
+}
+
+/* Continue Button */
 .btn-continue {
-  background-color: #2563EB;
-  color: #fff;
+  background-color: var(--accent-primary);
+  color: var(--text-white);
   font-size: 20px;
   font-weight: 800;
   padding: 14px 44px;
@@ -730,4 +789,19 @@ body {
   border: none;
   cursor: pointer;
   letter-spacing: 0.5px;
+  transition: background-color var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast);
+  box-shadow: 0 4px 14px rgba(79, 70, 229, 0.25);
+  user-select: none;
+}
+
+.btn-continue:hover {
+  background-color: var(--accent-primary-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(79, 70, 229, 0.35);
+}
+
+.btn-continue:active {
+  background-color: var(--accent-primary-active);
+  transform: translateY(0);
+  box-shadow: 0 2px 8px rgba(79, 70, 229, 0.2);
 }

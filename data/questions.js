@@ -89,9 +89,24 @@ export const questionsData = [
     type: "form",
     question: "What can be reimbursed using the form?",
     media: {
-      kind: "image",
-      imageUrl: "./assets/q2-lorene-reimbursement.png",
-      tableData: null
+      kind: "table",
+      imageUrl: null,
+      formHeader: {
+        title: "Lorene Industries",
+        subtitle: "Reimbursement Request Form",
+        meta: "Name: Timothy Oswell<br>Supervisor's name: Laura Cho<br>Department: Advertising<br>ID: 8123976<br>Position: Project manager",
+        section: "Itemized expenses:"
+      },
+      tableData: {
+        columns: ["Date", "Description", "Cost"],
+        rows: [
+          ["28/1", "Travel to meeting", "£3"],
+          ["28/1", "Lunch with Yannick Le Mignon, Mazzira Group", "£55"],
+          ["28/1", "Return travel to office", "£3"],
+          ["", "Total reimbursement", "£61"]
+        ],
+        footnote: "Funds will not be issued to employees without itemized receipts.<br><br>Credits for claimed reimbursements will be added to the employee's regular biweekly paycheck.<br><br>Amounts over £100 will not be processed during the current pay period. Instead, they will be reimbursed at the end of the following quarter.<br><br>Employee signature: Timothy Oswell<br>Supervisor signature: Laura Cho<br>Form received date: 30/1<br>Receipts attached? Yes<br>Finance department reimbursement officer approval: Tia Jegerfalk"
+      }
     },
     answers: [
       { id: "A", text: "Only amounts less than £100" },
