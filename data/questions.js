@@ -202,17 +202,17 @@ export const questionsData = [
     id: "q5",
     order: 5,
     type: "chart",
-    question: "Why might rates be raised by the postal service in the future?",
+    question: "Which type of mail had a new price that was closest to its original price?",
     media: {
       kind: "image",
       imageUrl: "./assets/5-postal-rates.png",
       tableData: null
     },
     answers: [
-      { id: "A", text: "To cover expenses related to an expansion" },
-      { id: "B", text: "To adjust for changes in inflation" },
-      { id: "C", text: "To pay for additional staff members" },
-      { id: "D", text: "To allow for mail heavier than 30 grams" }
+      { id: "A", text: "Domestic letter mail" },
+      { id: "B", text: "Commercial mail" },
+      { id: "C", text: "International mail" },
+      { id: "D", text: "Metered mail" }
     ],
     correctAnswerId: "B",
     timing: {
@@ -223,11 +223,13 @@ export const questionsData = [
     evidence: {
       mode: "image_keys",
       chain: [
-        { step: 1, key: "future price adjustments", label: "future price adjustments" },
-        { step: 2, key: "national inflation", label: "national inflation" }
+        { step: 1, key: "Commercial mail", label: "Find row: Commercial mail" },
+        { step: 2, key: "$0.70", label: "Old Price: $0.70" },
+        { step: 3, key: "$0.85", label: "New Price: $0.85" },
+        { step: 4, key: "$0.15", label: "$0.70 → $0.85: difference $0.15, the smallest" }
       ]
     },
-    why: "Thông báo cho biết mọi điều chỉnh giá trong tương lai sẽ dựa trên tình hình lạm phát quốc gia. Vì vậy, lý do có thể khiến mức phí tăng là để điều chỉnh theo sự thay đổi của lạm phát.",
-    skill: "SCAN → LOCATE EVIDENCE → RECOGNIZE PARAPHRASE"
+    why: "Commercial mail: $0.70 → $0.85, a difference of only $0.15.",
+    skill: "COMPARE → CALCULATE DIFFERENCE → IDENTIFY CLOSEST VALUE"
   }
 ];

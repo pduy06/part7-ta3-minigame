@@ -12,6 +12,7 @@ import { createDoneScreen } from './screens/DoneScreen.js';
 import { soundManager } from './components/shared/sound.js';
 
 let lastPhase = null;
+let prevUnlockedKey = null;
 
 function renderHeader(gameState) {
   const header = document.createElement('header');
@@ -125,6 +126,23 @@ export function initApp() {
           soundManager.playDone();
         }
         lastPhase = gameState.phase;
+      }
+
+      // Audio cue for answer reveal (10s expired or skipped -> locked + result shown)
+      if (gameState.phase === GamePhase.ANSWER_MODE && !gameState.isAnswerLocked) {
+        prevUnlockedKey = `${gameState.currentQuestionIndex}`;
+      } else if (gameState.phase === GamePhase.ANSWER_MODE && gameState.isAnswerLocked && prevUnlockedKey === `${gameState.currentQuestionIndex}`) {
+        prevUnlockedKey = null;
+        const rq = gameState.getCurrentQuestion();
+        if (!gameState.selectedAnswer) {
+          soundManager.playTimeout();
+        } else if (gameState.selectedAnswer === rq?.correctAnswerId) {
+          soundManager.playCorrect();
+        } else {
+          soundManager.playIncorrect();
+        }
+      } else if (gameState.phase !== GamePhase.ANSWER_MODE) {
+        prevUnlockedKey = null;
       }
 
       appRoot.innerHTML = '';

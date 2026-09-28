@@ -1,7 +1,8 @@
 /**
  * Answer Screen Component
  * Renders Question prompt and large A/B/C/D choices (28-32px text).
- * Direct click locks immediately.
+ * Click selects provisionally (changeable within 10s, no result yet).
+ * Result + explanation reveal only when 10s expires (or Next/skip).
  * Shows:
  * - Selected green (✓) or red (✕) with shake animation
  * - Correct answer highlighted green with ✓
@@ -86,12 +87,7 @@ export function createAnswerScreen(gameState) {
     gameState.isAnswerLocked,
     gameState.isResultShown,
     (answerId) => {
-      const isCorrect = answerId === q.correctAnswerId;
-      if (isCorrect) {
-        soundManager.playCorrect();
-      } else {
-        soundManager.playIncorrect();
-      }
+      soundManager.playClick();
       gameState.selectAnswer(answerId);
     }
   );

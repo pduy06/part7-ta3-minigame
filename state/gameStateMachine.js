@@ -1,8 +1,8 @@
 /**
  * Game State Machine
  * Flow trinh chieu tren lop:
- * READY -> QUESTION + 5s -> DOCUMENT (anh goc full) + 20s -> ANSWER + 10s chon -> RESULT + EXPLANATION -> CONTINUE -> Q tiep
- * Khong tu dong chuyen cau sau khi chon. Het 10s chon thi khoa + hien giai thich. Timer state truoc stop khi sang state moi.
+ * READY -> QUESTION + 5s -> DOCUMENT (anh goc full) + 20s -> ANSWER + 10s chon (tam thoi, duoc doi, chua lock) -> HET 10s lock + RESULT + EXPLANATION -> CONTINUE -> Q tiep
+ * Chon dap an trong 10s chi luu tam, khong hien ket qua + giai thich. Het 10s (hoac Next/skip) moi khoa + hien ket qua. Timer state truoc stop khi sang state moi.
  */
 
 import { questionsData } from '../data/questions.js';
@@ -168,13 +168,9 @@ export class GameStateMachine {
     if (this.phase !== GamePhase.ANSWER_MODE) return false;
     if (this.isAnswerLocked) return false;
 
-    this._pushHistory();
+    // Chon tam trong 10s: luu lua chon, duoc doi, KHONG lock, KHONG hien ket qua + giai thich, timer van chay.
     this.selectedAnswer = answerId;
-    this.isAnswerLocked = true;
-    this.isResultShown = true;
     this.isTimeout = false;
-    globalTimer.stop();
-    // Khong tu dong chuyen cau. Giu RESULT + EXPLANATION, doi bam CONTINUE.
     this._notify();
 
     return true;
@@ -183,12 +179,12 @@ export class GameStateMachine {
   lockOnTimeout() {
     if (this.phase !== GamePhase.ANSWER_MODE) return;
     if (this.isAnswerLocked) return;
-    // Het 10s khong chon: khoa, hien dap an dung + giai thich
+    // Het 10s (hoac Next/skip): khoa + hien ket qua + giai thich. Giu nguyen lua chon cuoi cua nguoi choi.
     this._pushHistory();
-    this.selectedAnswer = null;
     this.isAnswerLocked = true;
     this.isResultShown = true;
-    this.isTimeout = true;
+    this.isTimeout = !this.selectedAnswer;
+    globalTimer.stop();
     this._notify();
   }
 

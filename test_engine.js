@@ -40,6 +40,20 @@ for (let i = 1; i <= 5; i++) {
   assert(!!questionsData[i].why, `Câu ${i} có dòng giải thích why ngắn gọn`);
 }
 
+// 1b. Kiểm tra nội dung Q5 (mail rates: closest new vs original price)
+console.log("\n1b. Kiểm tra nội dung Q5:");
+const q5 = questionsData.find(x => x.id === 'q5');
+assert(q5.question === "Which type of mail had a new price that was closest to its original price?", "Q5 question chính xác");
+assert(q5.answers.map(a => a.id).join(',') === "A,B,C,D", "Q5 đủ 4 phương án A,B,C,D");
+assert(q5.answers.map(a => a.text).join('|') === "Domestic letter mail|Commercial mail|International mail|Metered mail", "Q5 answers đúng thứ tự");
+assert(q5.correctAnswerId === 'B', "Q5 đáp án đúng là B (Commercial mail)");
+assert(q5.skill === "COMPARE → CALCULATE DIFFERENCE → IDENTIFY CLOSEST VALUE", "Q5 skill chính xác");
+assert(q5.why === "Commercial mail: $0.70 → $0.85, a difference of only $0.15.", "Q5 explanation 1 câu ngắn");
+assert(!/%/.test(q5.why), "Q5 explanation không dùng % Increase");
+assert(!/%/.test(q5.evidence.chain.map(s => s.label).join(' ')), "Q5 evidence không dùng % Increase");
+assert(q5.evidence.chain.some(s => s.key === "Commercial mail"), "Q5 evidence key: Commercial mail");
+assert(q5.media?.imageUrl === "./assets/5-postal-rates.png", "Q5 dùng đúng image asset gốc");
+
 // 2. Kiểm tra GameStateMachine Flow
 console.log("\n2. Kiểm tra GameStateMachine Flow:");
 gameState.resetGame();
@@ -64,17 +78,29 @@ assert(gameState.phase === GamePhase.DOCUMENT_SHOWN, "Hết 10s chuyển sang DO
 gameState.skipTimer();
 assert(gameState.phase === GamePhase.ANSWER_MODE, "Hết 20s scan chuyển sang ANSWER_MODE");
 
-// Chọn đáp án & khóa
+// Chọn đáp án TẠM trong 10s: chưa khóa, chưa hiện kết quả, được đổi
 assert(gameState.isAnswerLocked === false, "Trước khi chọn, answer chưa bị khóa");
 const selectRes1 = gameState.selectAnswer('C');
 assert(selectRes1 === true, "Chọn đáp án C thành công");
 assert(gameState.selectedAnswer === 'C', "Đáp án đã chọn là C");
-assert(gameState.isAnswerLocked === true, "Sau khi chọn, answer bị khóa");
+assert(gameState.isAnswerLocked === false, "Chọn xong vẫn chưa khóa (chờ hết 10s)");
+assert(gameState.isResultShown === false, "Chưa hiện kết quả + giải thích khi còn 10s");
 
-// Thử đổi sang đáp án khác
+// Đổi đáp án trong 10s
 const selectRes2 = gameState.selectAnswer('A');
-assert(selectRes2 === false, "Không thể đổi đáp án sau khi đã khóa");
-assert(gameState.selectedAnswer === 'C', "Đáp án vẫn là C");
+assert(selectRes2 === true, "Được đổi đáp án trong 10s");
+assert(gameState.selectedAnswer === 'A', "Đáp án hiện tại là A");
+assert(gameState.isResultShown === false, "Đổi xong vẫn chưa hiện kết quả");
+
+// Hết 10s (skip) -> khóa + hiện kết quả, giữ lựa chọn cuối
+gameState.skipTimer();
+assert(gameState.phase === GamePhase.ANSWER_MODE, "Vẫn ở ANSWER_MODE khi hết 10s");
+assert(gameState.isAnswerLocked === true, "Hết 10s thì khóa đáp án");
+assert(gameState.isResultShown === true, "Hết 10s mới hiện kết quả + giải thích");
+assert(gameState.selectedAnswer === 'A', "Giữ lựa chọn cuối (A), không bị xóa");
+
+// Sau khi khóa thì không đổi được nữa
+assert(gameState.selectAnswer('C') === false, "Không thể đổi đáp án sau khi đã khóa");
 
 // Chuyển sang EVIDENCE
 gameState.setPhase(GamePhase.EVIDENCE);
