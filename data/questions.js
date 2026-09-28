@@ -50,26 +50,18 @@ export const questionsData = [
   {
     id: "q1",
     order: 1,
-    type: "chart",
-    question: "On which day does the marketing team meet after 3 PM?",
+    type: "form",
+    question: "How much does an Avalanche fuel canister cost?",
     media: {
-      kind: "table",
-      tableData: {
-        columns: ["Day", "Team", "Meeting Time", "Conference Room"],
-        rows: [
-          ["Monday", "Sales & Outreach", "9:00 AM – 10:30 AM", "Room A"],
-          ["Tuesday", "Marketing", "3:30 PM – 5:00 PM", "Room B"],
-          ["Wednesday", "Marketing", "10:00 AM – 11:30 AM", "Room A"],
-          ["Thursday", "Finance & Audit", "2:00 PM – 3:30 PM", "Room C"],
-          ["Friday", "Human Resources", "1:30 PM – 3:00 PM", "Room B"]
-        ]
-      }
+      kind: "image",
+      imageUrl: "./assets/q1-maple-outdoor.png",
+      tableData: null
     },
     answers: [
-      { id: "A", text: "Monday" },
-      { id: "B", text: "Tuesday" },
-      { id: "C", text: "Wednesday" },
-      { id: "D", text: "Thursday" }
+      { id: "A", text: "$58.79" },
+      { id: "B", text: "$9.98" },
+      { id: "C", text: "$19.96" },
+      { id: "D", text: "$12.85" }
     ],
     correctAnswerId: "B",
     timing: {
@@ -77,14 +69,17 @@ export const questionsData = [
       scanTimerSeconds: 20
     },
     evidence: {
-      mode: "table_cells",
+      mode: "image_keys",
       chain: [
-        { step: 1, row: 1, col: 1, label: "Team: Marketing (Tuesday & Wednesday)" },
-        { step: 2, row: 1, col: 2, label: "Time: 3:30 PM (Sau 3 PM)" },
-        { step: 3, row: 1, col: 0, label: "Ngày: Tuesday" }
+        { step: 1, key: "Fuel Canister", label: "Find the row: Fuel Canister" },
+        { step: 2, key: "Avalanche", label: "Check the brand: Avalanche" },
+        { step: 3, key: "UNIT PRICE", label: "Check the column: UNIT PRICE" },
+        { step: 4, key: "$9.98", label: "→ $9.98" }
       ]
     },
-    why: "Tuesday là ngày duy nhất đội Marketing họp lúc 3:30 PM (sau 3 PM)."
+    why: "Fuel Canister → Avalanche → UNIT PRICE → $9.98.",
+    distractor: "$19.96 appears in the PRICE column, not the UNIT PRICE column.",
+    skill: "SCAN → FIND ROW → CHECK COLUMN → FIND DATA"
   },
   {
     id: "q2",

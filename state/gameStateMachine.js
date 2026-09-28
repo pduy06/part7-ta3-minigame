@@ -1,7 +1,8 @@
 /**
  * Game State Machine
- * Single source of truth for the minimal presentation game flow:
- * QUESTION -> READY -> 10s TIMER -> DOCUMENT -> 20s SCAN -> ANSWER -> LOCK -> RESULT -> EVIDENCE -> NEXT -> DONE
+ * Flow trinh chieu tren lop:
+ * READY -> QUESTION + 10s -> DOCUMENT (anh goc full) + 20s -> ANSWER (lock) -> RESULT + EXPLANATION -> CONTINUE -> Q tiep
+ * Khong tu dong chuyen cau sau khi chon. Timer state truoc phai stop khi sang state moi.
  */
 
 import { questionsData } from '../data/questions.js';
@@ -96,14 +97,8 @@ export class GameStateMachine {
     this.selectedAnswer = answerId;
     this.isAnswerLocked = true;
     this.isResultShown = true;
+    // Khong tu dong chuyen cau. Giu RESULT + EXPLANATION, doi bam CONTINUE.
     this._notify();
-
-    // After brief delay (~700ms) to see the chosen answer feedback, auto-advance to EVIDENCE
-    setTimeout(() => {
-      if (this.phase === GamePhase.ANSWER_MODE) {
-        this.setPhase(GamePhase.EVIDENCE);
-      }
-    }, 700);
 
     return true;
   }

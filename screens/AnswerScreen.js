@@ -1,11 +1,31 @@
 /**
  * Answer Screen Component
- * Renders Question prompt and 4 options (A, B, C, D).
- * Immediate lock upon selection with quick result feedback.
+ * STEP 3-6: Question + 4 answers (click truc tiep, lock ngay, xanh/do).
+ * Sau khi chon: hien RESULT + EXPLANATION cuc ngan (gach chan do key) + CONTINUE phia duoi.
+ * Khong tu dong chuyen cau.
  */
 
 import { createQuestionHeader } from '../components/shared/QuestionHeader.js';
 import { createAnswerGrid } from '../components/shared/AnswerGrid.js';
+
+function redKey(text) {
+  return `<span class="red-key">${text}</span>`;
+}
+
+function buildExplanationHtml(q) {
+  if (!q.evidence?.chain) return q.why ? `<div class="explanation-box">${q.why}</div>` : '';
+  const steps = q.evidence.chain.map(s => `<div>${s.label ? s.label.replace(s.key || '___', redKey(s.key || '')) : ''}</div>`).join('');
+  // Fallback neu label khong chua key: liet ke key gach do
+  const keys = q.evidence.chain.map(s => redKey(s.key)).join(' → ');
+  return `
+    <div class="explanation-box">
+      <div class="explanation-title">Evidence</div>
+      <div class="explanation-steps">${steps || keys}</div>
+      ${q.why ? `<div class="explanation-why">${q.why}</div>` : ''}
+      ${q.distractor ? `<div class="explanation-distractor">Distractor: ${q.distractor.replace('PRICE', redKey('PRICE')).replace('UNIT PRICE', redKey('UNIT PRICE'))}</div>` : ''}
+    </div>
+  `;
+}
 
 export function createAnswerScreen(gameState) {
   const container = document.createElement('div');
@@ -42,6 +62,11 @@ export function createAnswerScreen(gameState) {
       `;
     }
     container.appendChild(statusBar);
+
+    // 2b. EXPLANATION cuc ngan ngay ben duoi
+    const expWrap = document.createElement('div');
+    expWrap.innerHTML = buildExplanationHtml(q);
+    container.appendChild(expWrap);
   }
 
   // 3. 4 Answer Options Grid
@@ -55,6 +80,17 @@ export function createAnswerScreen(gameState) {
     }
   );
   container.appendChild(grid);
+
+  // 4. CONTINUE phia duoi sau khi da chon (khong tu dong chuyen)
+  if (gameState.isResultShown && gameState.isAnswerLocked) {
+    const row = document.createElement('div');
+    row.className = 'bottom-action-row';
+    row.innerHTML = `<button class="btn-continue">CONTINUE ➔</button>`;
+    row.querySelector('.btn-continue').addEventListener('click', () => {
+      gameState.nextQuestion();
+    });
+    container.appendChild(row);
+  }
 
   return container;
 }

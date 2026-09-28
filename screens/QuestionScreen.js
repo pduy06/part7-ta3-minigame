@@ -7,7 +7,21 @@ import { GamePhase } from '../state/gameStateMachine.js';
 import { createQuestionHeader } from '../components/shared/QuestionHeader.js';
 import { createCountdownElement } from '../components/shared/Countdown.js';
 import { createTableRenderer } from '../components/media/TableRenderer.js';
+import { createImageRenderer } from '../components/media/ImageRenderer.js';
 import { createSentenceRenderer } from '../components/longsentence/SentenceRenderer.js';
+
+function createCornerTimer() {
+  const wrap = document.createElement('div');
+  wrap.className = 'timer-corner';
+  wrap.appendChild(createCountdownElement());
+  return wrap;
+}
+
+function createDocumentEl(q) {
+  if (q.media?.kind === 'image') return createImageRenderer(q.media);
+  if (q.type === 'long_sentence') return createSentenceRenderer(q.longSentence, null, 0);
+  return createTableRenderer(q.media, null, 0);
+}
 
 export function createQuestionScreen(gameState) {
   const container = document.createElement('div');
@@ -48,13 +62,11 @@ export function createQuestionScreen(gameState) {
     container.appendChild(actionArea);
 
   } else if (isQuestionTimer) {
-    // 2. QUESTION + 10s COUNTDOWN
+    // 2. STEP 1: QUESTION truoc, 10s goc phai, chua hien document
     container.classList.add('screen-center');
+    container.appendChild(createCornerTimer());
     const header = createQuestionHeader(q);
     container.appendChild(header);
-
-    const countdownEl = createCountdownElement();
-    container.appendChild(countdownEl);
 
     // Subtle skip button
     const skipBtn = document.createElement('button');
@@ -66,20 +78,17 @@ export function createQuestionScreen(gameState) {
     container.appendChild(skipBtn);
 
   } else if (isDocumentScan) {
-    // 3. DOCUMENT IS THE CENTRAL FOCUS + 20s COUNTDOWN
-    const header = createQuestionHeader(q);
-    container.appendChild(header);
+    // 3. STEP 2: DOCUMENT anh goc full man hinh + cau hoi nho ben tren + 20s goc phai
+    const topBar = document.createElement('div');
+    topBar.className = 'doc-topbar';
+    const qMini = document.createElement('div');
+    qMini.className = 'doc-question-mini';
+    qMini.textContent = q.question;
+    topBar.appendChild(qMini);
+    topBar.appendChild(createCornerTimer());
+    container.appendChild(topBar);
 
-    const countdownEl = createCountdownElement();
-    container.appendChild(countdownEl);
-
-    if (q.type === 'long_sentence') {
-      const sentenceEl = createSentenceRenderer(q.longSentence, null, 0);
-      container.appendChild(sentenceEl);
-    } else {
-      const tableEl = createTableRenderer(q.media, null, 0);
-      container.appendChild(tableEl);
-    }
+    container.appendChild(createDocumentEl(q));
 
     // Subtle skip button
     const skipBtn = document.createElement('button');
