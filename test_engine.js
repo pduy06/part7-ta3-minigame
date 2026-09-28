@@ -21,13 +21,18 @@ function assert(condition, message) {
   }
 }
 
-// 1. Kiểm tra cấu trúc Questions Data
+// 1. Kiểm tra cấu trúc Questions Data (Demo + Q1 Q149 + Q2 Q159; Q3/Q5 cho sau, Q4 bo, khong Q166/Q157)
 console.log("\n1. Kiểm tra Data Questions:");
-assert(questionsData.length === 6, "Tổng số câu hỏi là 6 (1 Demo + 5 Real)");
+assert(questionsData.length === 3, "Tổng số câu hỏi là 3 (1 Demo + Q1 + Q2)");
 assert(questionsData[0].id === 'demo', "Câu đầu tiên là Demo");
 assert(questionsData[0].correctAnswerId === 'C', "Câu demo đáp án đúng là C");
+assert(questionsData[1].id === 'q1', "Q1 = Q149");
+assert(questionsData[1].correctAnswerId === 'C', "Q1 đáp án đúng là C");
+assert(questionsData[2].id === 'q2', "Q2 = Q159");
+assert(questionsData[2].correctAnswerId === 'C', "Q2 đáp án đúng là C");
+assert(!questionsData.some(q => /166|167|168|157|Sullivan|postal/i.test(JSON.stringify(q))), "Không xuất hiện Q166/Q167/Q168/Q157");
 
-for (let i = 1; i <= 5; i++) {
+for (let i = 1; i <= 2; i++) {
   assert(questionsData[i].order === i, `Câu ${i} có order = ${i}`);
   assert(questionsData[i].answers.length === 4, `Câu ${i} có đủ 4 phương án A, B, C, D`);
   assert(!!questionsData[i].why, `Câu ${i} có dòng giải thích why ngắn gọn`);
@@ -78,13 +83,11 @@ gameState.nextQuestion();
 assert(gameState.currentQuestionIndex === 1, "Đã chuyển sang Câu 1");
 assert(gameState.phase === GamePhase.QUESTION_SHOWN, "Câu 1 ở trạng thái QUESTION_SHOWN");
 
-// Đi tiếp qua các câu Q2, Q3, Q4, Q5
-for (let qIdx = 2; qIdx <= 5; qIdx++) {
-  gameState.nextQuestion();
-  assert(gameState.currentQuestionIndex === qIdx, `Đã chuyển sang Câu ${qIdx}`);
-}
+// Đi tiếp sang Q2
+gameState.nextQuestion();
+assert(gameState.currentQuestionIndex === 2, "Đã chuyển sang Câu 2");
 
-// Từ Q5 chuyển sang DONE
+// Từ Q2 (câu cuối hiện tại) chuyển sang DONE
 gameState.nextQuestion();
 assert(gameState.phase === GamePhase.DONE, "Sau câu cuối cùng chuyển sang DONE");
 

@@ -1,8 +1,7 @@
 /**
- * TOEIC Part 7 Questions Data
- * Minimal, concise data-driven schema.
- * Question 0: Demo / Practice
- * Questions 1 - 5: Main Questions
+ * TOEIC Part 7 Questions Data - dong bo theo noi dung chot:
+ * Q1 = Q149 (Lorene), Q2 = Q159 (Channel 19)
+ * Q3/Q5 chua chot (giu vi tri, se them sau), Q4 BO, khong Q166/Q157.
  */
 
 export const questionsData = [
@@ -52,41 +51,6 @@ export const questionsData = [
     id: "q1",
     order: 1,
     type: "form",
-    question: "How much does an Avalanche fuel canister cost?",
-    media: {
-      kind: "image",
-      imageUrl: "./assets/q1-maple-outdoor.png",
-      tableData: null
-    },
-    answers: [
-      { id: "A", text: "$58.79" },
-      { id: "B", text: "$9.98" },
-      { id: "C", text: "$19.96" },
-      { id: "D", text: "$12.85" }
-    ],
-    correctAnswerId: "B",
-    timing: {
-      questionTimerSeconds: 5,
-      scanTimerSeconds: 20,
-      answerTimerSeconds: 10
-    },
-    evidence: {
-      mode: "image_keys",
-      chain: [
-        { step: 1, key: "Fuel Canister", label: "Find the row: Fuel Canister" },
-        { step: 2, key: "Avalanche", label: "Check the brand: Avalanche" },
-        { step: 3, key: "UNIT PRICE", label: "Check the column: UNIT PRICE" },
-        { step: 4, key: "$9.98", label: "→ $9.98" }
-      ]
-    },
-    why: "Fuel Canister → Avalanche → UNIT PRICE → $9.98.",
-    distractor: "$19.96 appears in the PRICE column, not the UNIT PRICE column.",
-    skill: "SCAN → FIND ROW → CHECK COLUMN → FIND DATA"
-  },
-  {
-    id: "q2",
-    order: 2,
-    type: "form",
     question: "What can be reimbursed using the form?",
     media: {
       kind: "table",
@@ -126,12 +90,12 @@ export const questionsData = [
         { step: 1, key: "without itemized receipts", label: "Funds will not be issued to employees without itemized receipts." }
       ]
     },
-    why: "Funds will not be issued to employees without itemized receipts.",
-    skill: "SCAN form → policy/receipt section"
+    why: "Theo quy định của biểu mẫu, khoản hoàn trả chỉ được cấp khi nhân viên nộp biên lai chi tiết. Vì vậy, đáp án đúng là C.",
+    skill: "Scan → Find policy → Match evidence"
   },
   {
-    id: "q3",
-    order: 3,
+    id: "q2",
+    order: 2,
     type: "chart",
     question: "What is the focus of the channel?",
     media: {
@@ -154,90 +118,15 @@ export const questionsData = [
     evidence: {
       mode: "image_keys",
       chain: [
-        { step: 1, key: "nature, wildlife, the outdoors", label: "The programs mainly focus on nature, wildlife, the outdoors, and the natural world." }
+        { step: 1, key: "Life in Alaska", label: "Life in Alaska" },
+        { step: 2, key: "Amazing Sights of Africa", label: "Amazing Sights of Africa" },
+        { step: 3, key: "Anatomy of a Dinosaur", label: "Anatomy of a Dinosaur" },
+        { step: 4, key: "Rocky", label: "Rocky" },
+        { step: 5, key: "Natural Phenomenon", label: "Natural Phenomenon" },
+        { step: 6, key: "Blue Ocean", label: "Blue Ocean" }
       ]
     },
-    why: "The programs on the schedule mainly focus on nature, wildlife, the outdoors, and the natural world.",
-    skill: "Overview Scan — titles + programs for general topic, not line-by-line"
-  },
-  {
-    id: "q4",
-    order: 4,
-    type: "form",
-    question: "What did Ms. Sullivan do on March 13?",
-    media: {
-      kind: "image",
-      imageUrl: "./assets/q4-ms-sullivan.png",
-      tableData: null
-    },
-    answers: [
-      { id: "A", text: "Purchased a home security system" },
-      { id: "B", text: "Returned a product" },
-      { id: "C", text: "Signed up for Internet service" },
-      { id: "D", text: "Made an appointment" }
-    ],
-    correctAnswerId: "C",
-    timing: {
-      questionTimerSeconds: 5,
-      scanTimerSeconds: 20,
-      answerTimerSeconds: 10
-    },
-    evidence: {
-      mode: "image_keys",
-      chain: [
-        { step: 1, key: "Purchase Date: March 13", label: "Purchase Date: March 13" },
-        { step: 2, key: "Services Purchased", label: "Services Purchased:" },
-        { step: 3, key: "Midas Internet multimedia package", label: "Midas Internet multimedia package" }
-      ]
-    },
-    why: "Trong hợp đồng, Ms. Tanya Sullivan có Purchase Date là March 13 và phần Services Purchased ghi Midas Internet multimedia package. Vì vậy, cô ấy đã đăng ký dịch vụ Internet vào ngày 13 tháng 3.",
-    skill: "Scan → Find the name/date → Locate the relevant information → Match the paraphrase"
-  },
-  {
-    id: "q5",
-    order: 5,
-    type: "chart",
-    question: "Why might rates be raised by the postal service in the future?",
-    media: {
-      kind: "image",
-      imageUrl: "./assets/5-postal-rates.png",
-      tableData: null
-    },
-    longSentenceBackup: {
-      text: "Any future price adjustments will be based on national inflation.",
-      segments: [
-        {
-          text: "Any future price adjustments will be based on",
-          role: "subject",
-          label: "Mệnh đề chính"
-        },
-        {
-          text: "national inflation.",
-          role: "main_verb",
-          label: "Paraphrase: changes in inflation"
-        }
-      ]
-    },
-    answers: [
-      { id: "A", text: "To cover expenses related to an expansion" },
-      { id: "B", text: "To adjust for changes in inflation" },
-      { id: "C", text: "To pay for additional staff members" },
-      { id: "D", text: "To allow for mail heavier than 30 grams" }
-    ],
-    correctAnswerId: "B",
-    timing: {
-      questionTimerSeconds: 5,
-      scanTimerSeconds: 20,
-      answerTimerSeconds: 10
-    },
-    evidence: {
-      mode: "image_keys",
-      chain: [
-        { step: 1, key: "national inflation", label: "Any future price adjustments will be based on national inflation." }
-      ]
-    },
-    why: "Any future price adjustments will be based on national inflation.",
-    paraphrase: "national inflation → changes in inflation",
-    skill: "Scan → Locate Evidence → Recognize Paraphrase"
+    why: "Nhìn tổng thể lịch chương trình, các nội dung chủ yếu nói về động vật, thực vật, thiên nhiên, môi trường và hoạt động ngoài trời. Vì vậy, chủ đề chính của kênh là Nature.",
+    skill: "Overview Scan → Identify the common topic"
   }
 ];

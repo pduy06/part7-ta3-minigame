@@ -18,7 +18,8 @@ function renderHeader(gameState) {
   let counterText = '';
 
   if (gameState.phase !== GamePhase.LOBBY && gameState.phase !== GamePhase.DONE) {
-    counterText = q.id === 'demo' ? 'DEMO' : `CÂU ${q.order} / 5`;
+    const totalReal = gameState.questions.length - 1;
+    counterText = q.id === 'demo' ? 'DEMO' : `CÂU ${q.order} / ${totalReal}`;
   }
 
   header.innerHTML = `
