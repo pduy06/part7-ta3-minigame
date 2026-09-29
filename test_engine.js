@@ -48,7 +48,7 @@ assert(q5.answers.map(a => a.id).join(',') === "A,B,C,D", "Q5 đủ 4 phương �
 assert(q5.answers.map(a => a.text).join('|') === "Domestic letter mail|Commercial mail|International mail|Metered mail", "Q5 answers đúng thứ tự");
 assert(q5.correctAnswerId === 'B', "Q5 đáp án đúng là B (Commercial mail)");
 assert(q5.skill === "COMPARE → CALCULATE DIFFERENCE → IDENTIFY CLOSEST VALUE", "Q5 skill chính xác");
-assert(q5.why === "Commercial mail: $0.70 → $0.85, a difference of only $0.15.", "Q5 explanation 1 câu ngắn");
+assert(q5.why === "Commercial mail có giá cũ $0.70 lên giá mới $0.85, chênh lệch chỉ $0.15 nên gần giá gốc nhất.", "Q5 explanation 1 câu ngắn (TV)");
 assert(!/%/.test(q5.why), "Q5 explanation không dùng % Increase");
 assert(!/%/.test(q5.evidence.chain.map(s => s.label).join(' ')), "Q5 evidence không dùng % Increase");
 assert(q5.evidence.chain.some(s => s.key === "Commercial mail"), "Q5 evidence key: Commercial mail");
@@ -105,6 +105,7 @@ assert(gameState.selectAnswer('C') === false, "Không thể đổi đáp án sau
 // Chuyển sang EVIDENCE
 gameState.setPhase(GamePhase.EVIDENCE);
 assert(gameState.phase === GamePhase.EVIDENCE, "Chuyển sang EVIDENCE thành công");
+assert(gameState.currentEvidenceStep === 1, "Vao EVIDENCE reset ve buoc 1");
 
 // Chuyển sang câu kế tiếp (Q1)
 gameState.nextQuestion();

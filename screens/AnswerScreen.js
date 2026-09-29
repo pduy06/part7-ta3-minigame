@@ -3,6 +3,7 @@
  * Renders Question prompt and large A/B/C/D choices (28-32px text).
  * Click selects provisionally (changeable within 10s, no result yet).
  * Result + explanation reveal only when 10s expires (or Next/skip).
+ * CONTINUE -> EVIDENCE (xem document + highlight theo buoc), khong skip.
  * Shows:
  * - Selected green (✓) or red (✕) with shake animation
  * - Correct answer highlighted green with ✓
@@ -12,6 +13,7 @@
  * - Large green CONTINUE button
  */
 
+import { GamePhase } from '../state/gameStateMachine.js';
 import { createQuestionHeader } from '../components/shared/QuestionHeader.js';
 import { createAnswerGrid } from '../components/shared/AnswerGrid.js';
 import { createCountdownElement } from '../components/shared/Countdown.js';
@@ -111,7 +113,7 @@ export function createAnswerScreen(gameState) {
 
     actionRow.querySelector('#btn-continue').addEventListener('click', () => {
       soundManager.playClick();
-      gameState.nextQuestion();
+      gameState.setPhase(GamePhase.EVIDENCE);
     });
 
     container.appendChild(actionRow);

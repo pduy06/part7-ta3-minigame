@@ -229,7 +229,7 @@ export const questionsData = [
         { step: 4, key: "$0.15", label: "$0.70 → $0.85: difference $0.15, the smallest" }
       ]
     },
-    why: "Commercial mail: $0.70 → $0.85, a difference of only $0.15.",
+    why: "Commercial mail có giá cũ $0.70 lên giá mới $0.85, chênh lệch chỉ $0.15 nên gần giá gốc nhất.",
     skill: "COMPARE → CALCULATE DIFFERENCE → IDENTIFY CLOSEST VALUE"
   }
 ];

@@ -1002,7 +1002,118 @@ body {
 }
 
 /* ============================================================
-   15. REDUCED MOTION (Accessibility)
+   15. EVIDENCE LAYOUT (Document + Step chain + Why)
+   ============================================================ */
+.evidence-layout {
+  width: 100%;
+  max-width: 1060px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  animation: screenFadeSlide var(--transition-normal) forwards;
+}
+
+.evidence-step-bar {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.step-btn {
+  font-size: 14px;
+  font-weight: var(--font-weight-semibold);
+  color: var(--text-muted);
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-card);
+  padding: 8px 18px;
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.step-btn:hover {
+  border-color: var(--accent-primary-border);
+  color: var(--accent-primary);
+}
+
+.step-btn.active {
+  background-color: var(--accent-primary);
+  border-color: var(--accent-primary);
+  color: var(--text-white);
+}
+
+.evidence-doc .document-original-img {
+  max-height: 48vh;
+}
+
+.evidence-chain-card {
+  border-left: 4px solid var(--accent-primary);
+}
+
+.evidence-chain .step-num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 26px;
+  height: 26px;
+  border-radius: var(--radius-full);
+  background-color: var(--accent-primary-subtle);
+  color: var(--accent-primary);
+  font-size: 14px;
+  font-weight: var(--font-weight-extrabold);
+  flex-shrink: 0;
+}
+
+.evidence-why-box {
+  background-color: var(--bg-subtle);
+  border: 1px solid var(--border-card);
+  border-radius: var(--radius-md);
+  padding: 16px 22px;
+  font-size: 19px;
+  line-height: 1.55;
+  color: var(--text-secondary);
+}
+
+.evidence-why-box strong {
+  color: var(--text-main);
+}
+
+.bottom-action-row {
+  display: flex;
+  justify-content: center;
+  margin-top: 8px;
+}
+
+/* Table highlight cells (demo table_cells) */
+.cell-target,
+.cell-target-current {
+  background-color: var(--accent-primary-subtle) !important;
+  font-weight: var(--font-weight-extrabold) !important;
+  color: var(--accent-primary) !important;
+}
+
+.cell-target-current {
+  outline: 2px solid var(--accent-primary);
+  outline-offset: -2px;
+}
+
+.row-active td {
+  background-color: var(--bg-muted);
+}
+
+.col-active {
+  color: var(--accent-primary) !important;
+}
+
+.footnote-target {
+  border-left-color: var(--accent-primary) !important;
+  background-color: var(--accent-primary-subtle) !important;
+}
+
+/* ============================================================
+   16. REDUCED MOTION (Accessibility)
    ============================================================ */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
