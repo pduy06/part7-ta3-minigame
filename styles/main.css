@@ -876,8 +876,9 @@ body {
 .btn-primary-large {
   background-color: var(--accent-primary);
   color: var(--text-white);
+  font-family: "Segoe UI", Arial, system-ui, sans-serif;
   font-size: 22px;
-  font-weight: var(--font-weight-extrabold);
+  font-weight: 700;
   padding: 16px 52px;
   border-radius: var(--radius-full);
   border: none;

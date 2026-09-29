@@ -20,7 +20,7 @@ export function createLobbyScreen(gameState) {
         Rèn luyện kỹ năng scan dữ kiện nhanh và xác định đáp án chính xác trong Part 7
       </p>
       <button id="btn-start" class="btn-primary-large">
-        BẮT ĐẦU ➔
+        BẮT ĐẦU
       </button>
     </div>
   `;
