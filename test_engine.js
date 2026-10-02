@@ -66,37 +66,37 @@ assert(gameState.getCurrentQuestion().id === 'demo', "Đang ở câu Demo");
 // Chưa bấm READY thì timer không chạy
 assert(gameState.phase === GamePhase.QUESTION_SHOWN, "Chưa bấm READY thì vẫn ở QUESTION_SHOWN");
 
-// Bấm READY -> QUESTION_TIMER (10s)
+// Bấm READY -> QUESTION_TIMER (15s)
 gameState.pressReady();
-assert(gameState.phase === GamePhase.QUESTION_TIMER, "Bấm READY chuyển sang QUESTION_TIMER (10s)");
+assert(gameState.phase === GamePhase.QUESTION_TIMER, "Bấm READY chuyển sang QUESTION_TIMER (15s)");
 
-// Hết 10s (hoặc skip) -> DOCUMENT_SHOWN (20s)
+// Hết 15s (hoặc skip) -> DOCUMENT_SHOWN (20s)
 gameState.skipTimer();
-assert(gameState.phase === GamePhase.DOCUMENT_SHOWN, "Hết 10s chuyển sang DOCUMENT_SHOWN (20s scan)");
+assert(gameState.phase === GamePhase.DOCUMENT_SHOWN, "Hết 15s chuyển sang DOCUMENT_SHOWN (20s scan)");
 
 // Hết 20s (hoặc skip) -> ANSWER_MODE
 gameState.skipTimer();
 assert(gameState.phase === GamePhase.ANSWER_MODE, "Hết 20s scan chuyển sang ANSWER_MODE");
 
-// Chọn đáp án TẠM trong 10s: chưa khóa, chưa hiện kết quả, được đổi
+// Chọn đáp án TẠM trong 15s: chưa khóa, chưa hiện kết quả, được đổi
 assert(gameState.isAnswerLocked === false, "Trước khi chọn, answer chưa bị khóa");
 const selectRes1 = gameState.selectAnswer('C');
 assert(selectRes1 === true, "Chọn đáp án C thành công");
 assert(gameState.selectedAnswer === 'C', "Đáp án đã chọn là C");
-assert(gameState.isAnswerLocked === false, "Chọn xong vẫn chưa khóa (chờ hết 10s)");
-assert(gameState.isResultShown === false, "Chưa hiện kết quả + giải thích khi còn 10s");
+assert(gameState.isAnswerLocked === false, "Chọn xong vẫn chưa khóa (chờ hết 15s)");
+assert(gameState.isResultShown === false, "Chưa hiện kết quả + giải thích khi còn 15s");
 
-// Đổi đáp án trong 10s
+// Đổi đáp án trong 15s
 const selectRes2 = gameState.selectAnswer('A');
-assert(selectRes2 === true, "Được đổi đáp án trong 10s");
+assert(selectRes2 === true, "Được đổi đáp án trong 15s");
 assert(gameState.selectedAnswer === 'A', "Đáp án hiện tại là A");
 assert(gameState.isResultShown === false, "Đổi xong vẫn chưa hiện kết quả");
 
-// Hết 10s (skip) -> khóa + hiện kết quả, giữ lựa chọn cuối
+// hết 15s (skip) -> khóa + hiện kết quả, giữ lựa chọn cuối
 gameState.skipTimer();
-assert(gameState.phase === GamePhase.ANSWER_MODE, "Vẫn ở ANSWER_MODE khi hết 10s");
-assert(gameState.isAnswerLocked === true, "Hết 10s thì khóa đáp án");
-assert(gameState.isResultShown === true, "Hết 10s mới hiện kết quả + giải thích");
+assert(gameState.phase === GamePhase.ANSWER_MODE, "Vẫn ở ANSWER_MODE khi hết 15s");
+assert(gameState.isAnswerLocked === true, "hết 15s thì khóa đáp án");
+assert(gameState.isResultShown === true, "hết 15s mới hiện kết quả + giải thích");
 assert(gameState.selectedAnswer === 'A', "Giữ lựa chọn cuối (A), không bị xóa");
 
 // Sau khi khóa thì không đổi được nữa

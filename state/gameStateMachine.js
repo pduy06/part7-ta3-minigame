@@ -1,8 +1,8 @@
 /**
  * Game State Machine
  * Flow trinh chieu tren lop:
- * READY -> QUESTION + 5s -> DOCUMENT (anh goc full) + 20s -> ANSWER + 10s chon (tam thoi, duoc doi, chua lock) -> HET 10s lock + RESULT + EXPLANATION -> CONTINUE -> Q tiep
- * Chon dap an trong 10s chi luu tam, khong hien ket qua + giai thich. Het 10s (hoac Next/skip) moi khoa + hien ket qua. Timer state truoc stop khi sang state moi.
+ * READY -> QUESTION + 15s -> DOCUMENT (anh goc full) + 30s -> ANSWER + 15s chon (tam thoi, duoc doi, chua lock) -> HET 15s lock + RESULT + EXPLANATION -> CONTINUE -> Q tiep
+ * Chon dap an trong 15s chi luu tam, khong hien ket qua + giai thich. Het 15s (hoac Next/skip) moi khoa + hien ket qua. Timer state truoc stop khi sang state moi.
  */
 
 import { questionsData } from '../data/questions.js';
@@ -88,7 +88,7 @@ export class GameStateMachine {
 
     const q = this.getCurrentQuestion();
     if (q && prev.phase === GamePhase.QUESTION_TIMER) {
-      const duration = q.timing?.questionTimerSeconds || this.config.timing.questionTimerSeconds || 5;
+      const duration = q.timing?.questionTimerSeconds || this.config.timing.questionTimerSeconds || 15;
       globalTimer.start(duration, () => {
         this._suppressHistory = false;
         this.setPhase(GamePhase.DOCUMENT_SHOWN);
@@ -100,7 +100,7 @@ export class GameStateMachine {
         this.setPhase(GamePhase.ANSWER_MODE);
       });
     } else if (q && prev.phase === GamePhase.ANSWER_MODE && !prev.isAnswerLocked) {
-      const duration = q.timing?.answerTimerSeconds || this.config.timing.answerTimerSeconds || 10;
+      const duration = q.timing?.answerTimerSeconds || this.config.timing.answerTimerSeconds || 15;
       globalTimer.start(duration, () => {
         this._suppressHistory = false;
         this.lockOnTimeout();
@@ -134,7 +134,7 @@ export class GameStateMachine {
       this.isTimeout = false;
       this.currentEvidenceStep = 1;
     } else if (newPhase === GamePhase.QUESTION_TIMER) {
-      const duration = q.timing?.questionTimerSeconds || this.config.timing.questionTimerSeconds || 5;
+      const duration = q.timing?.questionTimerSeconds || this.config.timing.questionTimerSeconds || 15;
       globalTimer.start(duration, () => {
         this.setPhase(GamePhase.DOCUMENT_SHOWN);
       });
@@ -144,7 +144,7 @@ export class GameStateMachine {
         this.setPhase(GamePhase.ANSWER_MODE);
       });
     } else if (newPhase === GamePhase.ANSWER_MODE) {
-      const duration = q.timing?.answerTimerSeconds || this.config.timing.answerTimerSeconds || 10;
+      const duration = q.timing?.answerTimerSeconds || this.config.timing.answerTimerSeconds || 15;
       globalTimer.start(duration, () => {
         this.lockOnTimeout();
       });
@@ -168,7 +168,7 @@ export class GameStateMachine {
     if (this.phase !== GamePhase.ANSWER_MODE) return false;
     if (this.isAnswerLocked) return false;
 
-    // Chon tam trong 10s: luu lua chon, duoc doi, KHONG lock, KHONG hien ket qua + giai thich, timer van chay.
+    // Chon tam trong 15s: luu lua chon, duoc doi, KHONG lock, KHONG hien ket qua + giai thich, timer van chay.
     this.selectedAnswer = answerId;
     this.isTimeout = false;
     this._notify();
@@ -179,7 +179,7 @@ export class GameStateMachine {
   lockOnTimeout() {
     if (this.phase !== GamePhase.ANSWER_MODE) return;
     if (this.isAnswerLocked) return;
-    // Het 10s (hoac Next/skip): khoa + hien ket qua + giai thich. Giu nguyen lua chon cuoi cua nguoi choi.
+    // Het 15s (hoac Next/skip): khoa + hien ket qua + giai thich. Giu nguyen lua chon cuoi cua nguoi choi.
     this._pushHistory();
     this.isAnswerLocked = true;
     this.isResultShown = true;

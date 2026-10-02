@@ -6,8 +6,8 @@
 export const gameConfig = {
   title: "TOEIC Reading Part 7",
   timing: {
-    questionTimerSeconds: 5,
+    questionTimerSeconds: 15,
     scanTimerSeconds: 30,
-    answerTimerSeconds: 10
+    answerTimerSeconds: 15
   }
 };

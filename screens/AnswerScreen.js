@@ -1,8 +1,8 @@
 /**
  * Answer Screen Component
  * Renders Question prompt and large A/B/C/D choices (28-32px text).
- * Click selects provisionally (changeable within 10s, no result yet).
- * Result + explanation reveal only when 10s expires (or Next/skip).
+ * Click selects provisionally (changeable within 15s, no result yet).
+ * Result + explanation reveal only when 15s expires (or Next/skip).
  * CONTINUE -> EVIDENCE (xem document + highlight theo buoc), khong skip.
  * Shows:
  * - Selected green (✓) or red (✕) with shake animation
@@ -119,7 +119,7 @@ export function createAnswerScreen(gameState) {
     container.appendChild(actionRow);
   }
 
-  // Subtle presenter nav: Previous (câu trước) + Next (bỏ qua 10s chọn)
+  // Subtle presenter nav: Previous (trang truoc) + Next (bỏ qua 15s chọn)
   if (!gameState.isAnswerLocked) {
     const nextBtn = document.createElement('button');
     nextBtn.className = 'btn-skip-subtle';

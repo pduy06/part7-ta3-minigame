@@ -128,7 +128,7 @@ export function initApp() {
         lastPhase = gameState.phase;
       }
 
-      // Audio cue for answer reveal (10s expired or skipped -> locked + result shown)
+      // Audio cue for answer reveal (15s expired or skipped -> locked + result shown)
       if (gameState.phase === GamePhase.ANSWER_MODE && !gameState.isAnswerLocked) {
         prevUnlockedKey = `${gameState.currentQuestionIndex}`;
       } else if (gameState.phase === GamePhase.ANSWER_MODE && gameState.isAnswerLocked && prevUnlockedKey === `${gameState.currentQuestionIndex}`) {

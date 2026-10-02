@@ -33,9 +33,9 @@ export const questionsData = [
     ],
     correctAnswerId: "C",
     timing: {
-      questionTimerSeconds: 5,
+      questionTimerSeconds: 15,
       scanTimerSeconds: 30,
-      answerTimerSeconds: 10
+      answerTimerSeconds: 15
     },
     evidence: {
       mode: "table_cells",
@@ -65,9 +65,9 @@ export const questionsData = [
     ],
     correctAnswerId: "B",
     timing: {
-      questionTimerSeconds: 5,
+      questionTimerSeconds: 15,
       scanTimerSeconds: 30,
-      answerTimerSeconds: 10
+      answerTimerSeconds: 15
     },
     evidence: {
       mode: "image_keys",
@@ -114,9 +114,9 @@ export const questionsData = [
     ],
     correctAnswerId: "C",
     timing: {
-      questionTimerSeconds: 5,
+      questionTimerSeconds: 15,
       scanTimerSeconds: 30,
-      answerTimerSeconds: 10
+      answerTimerSeconds: 15
     },
     evidence: {
       mode: "image_keys",
@@ -146,9 +146,9 @@ export const questionsData = [
     ],
     correctAnswerId: "C",
     timing: {
-      questionTimerSeconds: 5,
+      questionTimerSeconds: 15,
       scanTimerSeconds: 30,
-      answerTimerSeconds: 10
+      answerTimerSeconds: 15
     },
     evidence: {
       mode: "image_keys",
@@ -182,9 +182,9 @@ export const questionsData = [
     ],
     correctAnswerId: "C",
     timing: {
-      questionTimerSeconds: 5,
+      questionTimerSeconds: 15,
       scanTimerSeconds: 30,
-      answerTimerSeconds: 10
+      answerTimerSeconds: 15
     },
     evidence: {
       mode: "image_keys",
@@ -216,9 +216,9 @@ export const questionsData = [
     ],
     correctAnswerId: "B",
     timing: {
-      questionTimerSeconds: 5,
+      questionTimerSeconds: 15,
       scanTimerSeconds: 30,
-      answerTimerSeconds: 10
+      answerTimerSeconds: 15
     },
     evidence: {
       mode: "image_keys",
