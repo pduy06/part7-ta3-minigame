@@ -1,7 +1,7 @@
 /**
  * Game State Machine
  * Flow trinh chieu tren lop:
- * READY -> QUESTION + 15s -> DOCUMENT (anh goc full) + 30s -> ANSWER + 15s chon (tam thoi, duoc doi, chua lock) -> HET 15s lock + RESULT + EXPLANATION -> CONTINUE -> Q tiep
+ * READY -> QUESTION + 5s -> DOCUMENT (anh goc full) + 30s -> ANSWER + 15s chon (tam thoi, duoc doi, chua lock) -> HET 15s lock + RESULT + EXPLANATION -> CONTINUE -> Q tiep
  * Chon dap an trong 15s chi luu tam, khong hien ket qua + giai thich. Het 15s (hoac Next/skip) moi khoa + hien ket qua. Timer state truoc stop khi sang state moi.
  */
 
@@ -88,7 +88,7 @@ export class GameStateMachine {
 
     const q = this.getCurrentQuestion();
     if (q && prev.phase === GamePhase.QUESTION_TIMER) {
-      const duration = q.timing?.questionTimerSeconds || this.config.timing.questionTimerSeconds || 15;
+      const duration = q.timing?.questionTimerSeconds || this.config.timing.questionTimerSeconds || 5;
       globalTimer.start(duration, () => {
         this._suppressHistory = false;
         this.setPhase(GamePhase.DOCUMENT_SHOWN);
@@ -134,7 +134,7 @@ export class GameStateMachine {
       this.isTimeout = false;
       this.currentEvidenceStep = 1;
     } else if (newPhase === GamePhase.QUESTION_TIMER) {
-      const duration = q.timing?.questionTimerSeconds || this.config.timing.questionTimerSeconds || 15;
+      const duration = q.timing?.questionTimerSeconds || this.config.timing.questionTimerSeconds || 5;
       globalTimer.start(duration, () => {
         this.setPhase(GamePhase.DOCUMENT_SHOWN);
       });

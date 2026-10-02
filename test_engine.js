@@ -66,13 +66,13 @@ assert(gameState.getCurrentQuestion().id === 'demo', "Đang ở câu Demo");
 // Chưa bấm READY thì timer không chạy
 assert(gameState.phase === GamePhase.QUESTION_SHOWN, "Chưa bấm READY thì vẫn ở QUESTION_SHOWN");
 
-// Bấm READY -> QUESTION_TIMER (15s)
+// Bấm READY -> QUESTION_TIMER (5s)
 gameState.pressReady();
-assert(gameState.phase === GamePhase.QUESTION_TIMER, "Bấm READY chuyển sang QUESTION_TIMER (15s)");
+assert(gameState.phase === GamePhase.QUESTION_TIMER, "Bấm READY chuyển sang QUESTION_TIMER (5s)");
 
-// Hết 15s (hoặc skip) -> DOCUMENT_SHOWN (20s)
+// Hết 5s (hoặc skip) -> DOCUMENT_SHOWN (20s)
 gameState.skipTimer();
-assert(gameState.phase === GamePhase.DOCUMENT_SHOWN, "Hết 15s chuyển sang DOCUMENT_SHOWN (20s scan)");
+assert(gameState.phase === GamePhase.DOCUMENT_SHOWN, "Hết 5s chuyển sang DOCUMENT_SHOWN (20s scan)");
 
 // Hết 20s (hoặc skip) -> ANSWER_MODE
 gameState.skipTimer();

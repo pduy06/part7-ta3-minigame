@@ -33,7 +33,7 @@ export const questionsData = [
     ],
     correctAnswerId: "C",
     timing: {
-      questionTimerSeconds: 15,
+      questionTimerSeconds: 5,
       scanTimerSeconds: 30,
       answerTimerSeconds: 15
     },
@@ -65,7 +65,7 @@ export const questionsData = [
     ],
     correctAnswerId: "B",
     timing: {
-      questionTimerSeconds: 15,
+      questionTimerSeconds: 5,
       scanTimerSeconds: 30,
       answerTimerSeconds: 15
     },
@@ -114,7 +114,7 @@ export const questionsData = [
     ],
     correctAnswerId: "C",
     timing: {
-      questionTimerSeconds: 15,
+      questionTimerSeconds: 5,
       scanTimerSeconds: 30,
       answerTimerSeconds: 15
     },
@@ -146,7 +146,7 @@ export const questionsData = [
     ],
     correctAnswerId: "C",
     timing: {
-      questionTimerSeconds: 15,
+      questionTimerSeconds: 5,
       scanTimerSeconds: 30,
       answerTimerSeconds: 15
     },
@@ -182,7 +182,7 @@ export const questionsData = [
     ],
     correctAnswerId: "C",
     timing: {
-      questionTimerSeconds: 15,
+      questionTimerSeconds: 5,
       scanTimerSeconds: 30,
       answerTimerSeconds: 15
     },
@@ -216,7 +216,7 @@ export const questionsData = [
     ],
     correctAnswerId: "B",
     timing: {
-      questionTimerSeconds: 15,
+      questionTimerSeconds: 5,
       scanTimerSeconds: 30,
       answerTimerSeconds: 15
     },
